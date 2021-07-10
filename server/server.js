@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const cors = require('cors');
@@ -20,16 +19,6 @@ const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
 
-//db connection
-//note - db connection issues?  check for console logs in terminal
-mongoose
-  .connect(
-    'mongodb+srv://admin:adam123@cluster0.tqcgi.mongodb.net/scratch_project?retryWrites=true&w=majority'
-  )
-  .then(
-    console.log('Connected to DB: ENV Test String: ', process.env.TEST_STRING)
-  )
-  .catch((err) => console.log('Mongo DB Connection Error:', err));
 
 app.use(cors());
 app.use(express.json());
