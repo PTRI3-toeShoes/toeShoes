@@ -5,6 +5,10 @@ import Register from './components/Register';
 import Favorites from './components/Favorites';
 import NavBar from './components/NavBar';
 import Test from './components/Test';
+// import BrowserHistory from 'react-router/lib/BrowserHistory';
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 import MapView from './MapView';
@@ -14,9 +18,17 @@ const App = () => {
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? 'dark' : 'light';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [mapTheme, setMapTheme] = useState("mapbox://styles/mapbox/streets-v11");
+
+  function changeTheme(theme){
+    setMapTheme(theme)
+  }
 
   const handleThemeChange = () => {
+    // document.body.style = 'background: red;';
     setDarkState(!darkState);
+    darkState ? (changeTheme("mapbox://styles/mapbox/streets-v11"), document.body.style = 'background: white;') : (changeTheme("mapbox://styles/mapbox/dark-v8"), document.body.style = 'background: #424242;')
+   
   };
 
   const darkTheme = createMuiTheme({
@@ -50,9 +62,10 @@ const App = () => {
               <MainContainer
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
+                mapTheme={mapTheme}
               />
             </Route>
-            <Route exact path="/signin">
+            <Route exact path="/signin"  history={history}>
               <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
 
