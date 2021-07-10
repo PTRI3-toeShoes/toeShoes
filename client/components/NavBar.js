@@ -16,8 +16,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
+// import MoreIcon from '@material-ui/icons/MoreVert';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness2Icon from '@material-ui/icons/Brightness2';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,9 +28,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: 'none',
+    // display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
+      size: '30em',
+      // display: 'block',
     },
   },
   search: {
@@ -70,12 +71,12 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
+  // sectionDesktop: {
+  //   display: 'none',
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'flex',
+  //   },
+  // },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
@@ -92,6 +93,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
   const [goToSignOut, setGoToSignOut] = useState(false);
   const [goToSignIn, setGoToSignIn] = useState(false);
   const [favView, setFavView] = useState(false);
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -197,14 +199,14 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
             Rental Evaluator
           </Typography>
@@ -213,7 +215,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
           <div className={classes.sectionDesktop}>
             <Button onclick={handleThemeChange} />
             <IconButton color="inherit" onClick={handleThemeChange}>
-              <Brightness7Icon />
+              <Brightness4Icon />
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
@@ -239,7 +241,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              {/* <MoreIcon /> */}
             </IconButton>
           </div>
         </Toolbar>
