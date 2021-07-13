@@ -116,8 +116,8 @@ const MarkersList = (props) => {
       <Marker
         key={idx}
         id={idx}
-        longitude={marker.geometry.coordinates[0]}
-        latitude={marker.geometry.coordinates[1]}
+        longitude={Number(marker.geometry.coordinates[0])}
+        latitude={Number(marker.geometry.coordinates[1])}
         // onClick={() => handleMarkerClick(marker)}
         onClick={(e) => handleOpen(e, idx)}
       >
