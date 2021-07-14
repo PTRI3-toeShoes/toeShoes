@@ -8,10 +8,10 @@ const history = createBrowserHistory();
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router history={history}>
+  // <React.StrictMode>
+    <BrowserRouter history={history}>
       <App />
-    </Router>
-  </React.StrictMode>,
+    </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('entry-point')
 );

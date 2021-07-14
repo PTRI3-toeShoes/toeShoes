@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({isLoggedIn, setIsLoggedIn}) {
+export default function Signup({isLoggedIn, setIsLoggedIn}) {
   const classes = useStyles();
   const history = useHistory();
   //state to store input field values
@@ -72,10 +72,11 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
     e.preventDefault();
     api({
       method: 'post',
-      url: '/signin',
+      url: '/signup',
       data: {
         email,
         password,
+        confirm,
       },
     }).then((res) => {
       console.log(res.data.isLoggedIn);
@@ -100,7 +101,7 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
                 <img src="https://i.imgur.com/q7xlJjy.png" />
               </div> */}
               <Typography component="h1" variant="h5">
-                Sign in
+                Sign Up
               </Typography>
               <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <TextField
@@ -132,6 +133,22 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
                     setPassword(e.target.value);
                   }}
                 />
+
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="confirm_password"
+                  label="Confirm Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />      
                 {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -143,19 +160,19 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
                   color="primary"
                   className={classes.submit}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
                 <Grid container>
-                  <Grid item xs>
+                  {/* <Grid item xs>
                     <Link href="#" variant="body2">
                       Forgot password?
                     </Link>
-                  </Grid>
-                  <Grid item>
+                  </Grid> */}
+                  {/* <Grid item>
                     <Link href="#" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </form>
 
@@ -175,7 +192,7 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
                 className={classes.submit}
               >
                 {' '}
-                Sign In With Google
+                Sign Up With Google
               </Button>
             </div>
             <Box mt={8}>

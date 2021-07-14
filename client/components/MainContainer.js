@@ -15,7 +15,7 @@ const MainContainer = ({mapTheme}) => {
       </Container>
 
       {/* <label htmlFor='location'>Search:</label> */}
-      <input id="location" type="text" className="form-control" />
+      {/* <input id="location" type="text" className="form-control" />
       <button
         onClick={async () => {
           const params = {
@@ -52,7 +52,7 @@ const MainContainer = ({mapTheme}) => {
       >
         Search target
       </button>
-      <pre id="listings"></pre>
+      <pre id="listings"></pre> */}
     </Container>
   );
 };

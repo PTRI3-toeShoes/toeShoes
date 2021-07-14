@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import HomePage from './HomePage';
 import SignIn from './components/Signin';
 import MainContainer from './components/MainContainer';
 import Register from './components/Register';
@@ -6,9 +7,9 @@ import Favorites from './components/Favorites';
 import NavBar from './components/NavBar';
 import Test from './components/Test';
 // import BrowserHistory from 'react-router/lib/BrowserHistory';
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 import MapView from './MapView';
@@ -46,26 +47,32 @@ const App = () => {
 
         <main>
           <Switch>
-
+{/* 
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/favs" component={Favorites} />
-            <Route exact path="/">
-              <NavBar
+            <Route exact path="/favs" component={Favorites} /> */}
+            <Route path="/" exact component={HomePage}>
+              <HomePage
+                //Navabar props
                 handleThemeChange={handleThemeChange}
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setDarkState={setDarkState} 
                 darkState={darkState}
-                handleThemeChange={handleThemeChange}
-              />
-              <MainContainer
+ 
+                
+                //MainContainer props
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 mapTheme={mapTheme}
+
+
+
               />
             </Route>
-            <Route exact path="/signin"  history={history}>
+ 
+     
+            <Route exact path="/signin" >
               <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
 
