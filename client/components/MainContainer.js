@@ -32,8 +32,8 @@ const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
         }}
       >
         Click me
-      </button>
-      <br></br>
+      </button> */}
+      {/* <br></br>
       <input id="location1" type="text" className="form-control" />
       <button
         onClick={async () => {
