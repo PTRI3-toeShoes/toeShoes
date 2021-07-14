@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from './HomePage';
 import SignIn from './components/Signin';
+import SignUp from './components/SignUp';
 import MainContainer from './components/MainContainer';
 import Register from './components/Register';
 import Favorites from './components/Favorites';
@@ -75,6 +76,12 @@ const App = () => {
             <Route exact path="/signin" >
               <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
+
+            <Route exact path="/signup">
+              <SignUp isLoggedIn={isLoggedIn} />
+            </Route>
+
+            
 
             <Route exact path="/register">
               <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

@@ -88,17 +88,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedIn, setIsLoggedIn, handleThemeChange}) {
+export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedIn, setIsLoggedIn, handleThemeChange, favoriteCount}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [goToSignOut, setGoToSignOut] = useState(false);
   const [goToSignIn, setGoToSignIn] = useState(false);
   const [favView, setFavView] = useState(false);
+  const [goToSignup, setGoToSignup] = useState(false);
+  // const [favoriteCount, setFavoriteCount] = useState(1);
 
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
   // const handleThemeChange = () => {
   //   setDarkState(!darkState);
   // };
@@ -124,6 +127,12 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
     setFavView(true);
   };
 
+  const handleSignup = () => {
+    
+      setGoToSignup(true);
+  
+  };
+
   const signInOut = isLoggedIn ? 'Sign Out' : 'Sign In';
   const handleSignInOut = () => {
     console.log('triggered');
@@ -138,6 +147,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
   if (goToSignOut) return <Redirect to="/signin" />;
   if (goToSignIn) return <Redirect to="/signin" />;
   if (favView) return <Redirect to="/favs" />;
+  if (goToSignup) return <Redirect to="/signup" />;
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -153,6 +163,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleSignInOut}>{signInOut}</MenuItem>
+      <MenuItem onClick={handleSignup}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -220,7 +231,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
               <Brightness4Icon />
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={favoriteCount} color="secondary">
                 <FavoriteIcon onClick={showFavs} />
               </Badge>
             </IconButton>

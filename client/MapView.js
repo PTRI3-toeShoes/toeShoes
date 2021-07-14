@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-const MapView = ({mapTheme}) => {
+const MapView = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   // set Markers state
   // 190 E 72nd St APT 11B, New York, NY 10021
   /** Marker data should look like this
@@ -165,7 +165,9 @@ const MapView = ({mapTheme}) => {
           >
             <MarkersList 
               props={markers}
-              status={status}              
+              status={status}   
+              setFavoriteCount = {setFavoriteCount} 
+              favoriteCount = {favoriteCount}          
             />
 
             <div style={navStyle}>

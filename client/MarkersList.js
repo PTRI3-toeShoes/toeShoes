@@ -7,7 +7,7 @@ import api from './axios/axios';
 import Spinner from './Components/Spinner';
 import boiseList from './PropertyTestData/boiseList';
 const MarkersList = (props) => {
-  console.log('props', props)
+  console.log('props in markersList', props)
   let features = []
   let singleLocation = {}
   const { status } = props
@@ -137,6 +137,8 @@ const MarkersList = (props) => {
     <div>
       {content}
       {MapModalOpen && <MapModal
+        favoriteCount = {props.favoriteCount}
+        setFavoriteCount = {props.setFavoriteCount}
         open={MapModalOpen}
         handleClose={handleClose}
         // propList={features}

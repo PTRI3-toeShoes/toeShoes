@@ -11,11 +11,13 @@ const HomePage = ({
   mapTheme
 
 }) => {
+  const [favoriteCount, setFavoriteCount] = useState(1);
 
   return (
     <div>
       <NavBar 
 
+        favoriteCount = {favoriteCount}
         handleThemeChange={handleThemeChange}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
@@ -30,6 +32,8 @@ const HomePage = ({
       isLoggedIn={isLoggedIn}
       setIsLoggedIn={setIsLoggedIn}
       mapTheme={mapTheme}
+      setFavoriteCount = {setFavoriteCount}
+      favoriteCount = {favoriteCount}
       
       
       

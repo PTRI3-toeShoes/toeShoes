@@ -18,6 +18,8 @@ import Container from '@material-ui/core/Container';
 import GoogleIcon from './GoogleIcon';
 import api from '../axios/axios';
 import { useHistory } from 'react-router-dom'
+import LockIcon from '@material-ui/icons/Lock';
+
 
 function Copyright() {
   return (
@@ -59,30 +61,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup({isLoggedIn, setIsLoggedIn}) {
+export default function SignUp({isLoggedIn, setIsLoggedIn}) {
   const classes = useStyles();
   const history = useHistory();
   //state to store input field values
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emails, setEmails] = useState('');
+  const [passwords, setPasswords] = useState('');
+  const [confirm, setConfirm] = useState('');
 
   console.log('history ', history)
   //submit fxn to make http call to BE
   const handleSubmit = (e) => {
+  
+    
     e.preventDefault();
-    api({
-      method: 'post',
-      url: '/signup',
-      data: {
-        email,
-        password,
-        confirm,
-      },
-    }).then((res) => {
-      console.log(res.data.isLoggedIn);
-      setIsLoggedIn(res.data.isLoggedIn)
-      
-    });
+    if(passwords === confirm){
+      api({
+        method: 'post',
+        url: '/signup',
+        data: {
+          emails,
+          passwords,
+        },
+      }).then((res) => {
+        console.log(res.data.isLoggedIn);
+        setIsLoggedIn(res.data.isLoggedIn)
+        alert('Signed in!')
+        
+      });
+    }
+    if(passwords !== confirm) alert(`Passwords don't match!`)
   };
 
   if(isLoggedIn) return <Redirect to="/"/>;
@@ -95,7 +103,7 @@ export default function Signup({isLoggedIn, setIsLoggedIn}) {
             <CssBaseline />
             <div className={classes.paper} >
               <Avatar className={classes.avatar} >
-                <HouseIcon />
+                <LockIcon />
               </Avatar>
               {/* <div>
                 <img src="https://i.imgur.com/q7xlJjy.png" />
@@ -109,13 +117,13 @@ export default function Signup({isLoggedIn, setIsLoggedIn}) {
                   margin="normal"
                   required
                   fullWidth
-                  id="email"
+                  id="emails"
                   label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
+                  name="emails"
+                  autoComplete="emails"
+                  value={emails}
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    setEmails(e.target.value);
                   }}
                 />
                 <TextField
@@ -123,14 +131,14 @@ export default function Signup({isLoggedIn, setIsLoggedIn}) {
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
+                  name="passwords"
                   label="Password"
                   type="password"
-                  id="password"
+                  id="passwords"
                   autoComplete="current-password"
-                  value={password}
+                  value={passwords}
                   onChange={(e) => {
-                    setPassword(e.target.value);
+                    setPasswords(e.target.value);
                   }}
                 />
 
@@ -142,11 +150,11 @@ export default function Signup({isLoggedIn, setIsLoggedIn}) {
                   name="confirm_password"
                   label="Confirm Password"
                   type="password"
-                  id="password"
+                  id="confirm password"
                   autoComplete="current-password"
-                  value={password}
+                  value={confirm}
                   onChange={(e) => {
-                    setPassword(e.target.value);
+                    setConfirm(e.target.value);
                   }}
                 />      
                 {/* <FormControlLabel
@@ -175,14 +183,6 @@ export default function Signup({isLoggedIn, setIsLoggedIn}) {
                   </Grid> */}
                 </Grid>
               </form>
-
-              <Typography
-                component="h3"
-                variant="h5"
-                className={classes.submit}
-              >
-                <Divider />
-              </Typography>
 
               <Button
                 startIcon={<GoogleIcon />}

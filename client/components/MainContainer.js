@@ -5,12 +5,12 @@ import Card from '@material-ui/core/Card';
 import SearchBar from './SearchBar';
 import MapView from '../MapView';
 
-const MainContainer = ({mapTheme}) => {
+const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   return (
     <Container component="main">
       <Container>
         <Box>
-          <MapView mapTheme={mapTheme} />
+          <MapView mapTheme={mapTheme} favoriteCount = {favoriteCount} setFavoriteCount = {setFavoriteCount}/>
         </Box>
       </Container>
 
