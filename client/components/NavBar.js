@@ -16,9 +16,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import Brightness2Icon from '@material-ui/icons/Brightness2';
+// import MoreIcon from '@material-ui/icons/MoreVert';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import {Link} from 'react-router-dom';
+// import red from '@material-ui/core/colors/red';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -28,9 +30,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: 'none',
+    // display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
+      size: '30em',
+      // display: 'block',
     },
   },
   search: {
@@ -70,12 +73,12 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
+  // sectionDesktop: {
+  //   display: 'none',
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'flex',
+  //   },
+  // },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
@@ -84,22 +87,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({
-  setDarkState,
-  darkState,
-  isLoggedIn,
-  setIsLoggedIn,
-  handleThemeChange,
-}) {
+
+export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedIn, setIsLoggedIn, handleThemeChange, favoriteCount}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [goToSignOut, setGoToSignOut] = useState(false);
   const [goToSignIn, setGoToSignIn] = useState(false);
   const [favView, setFavView] = useState(false);
+  const [goToSignup, setGoToSignup] = useState(false);
+  // const [favoriteCount, setFavoriteCount] = useState(1);
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
+  // const handleThemeChange = () => {
+  //   setDarkState(!darkState);
+  // };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -122,6 +127,12 @@ export default function PrimarySearchAppBar({
     setFavView(true);
   };
 
+  const handleSignup = () => {
+    
+      setGoToSignup(true);
+  
+  };
+
   const signInOut = isLoggedIn ? 'Sign Out' : 'Sign In';
   const handleSignInOut = () => {
     console.log('triggered');
@@ -136,6 +147,7 @@ export default function PrimarySearchAppBar({
   if (goToSignOut) return <Redirect to="/signin" />;
   if (goToSignIn) return <Redirect to="/signin" />;
   if (favView) return <Redirect to="/favs" />;
+  if (goToSignup) return <Redirect to="/signup" />;
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -151,6 +163,7 @@ export default function PrimarySearchAppBar({
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleSignInOut}>{signInOut}</MenuItem>
+      <MenuItem onClick={handleSignup}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -199,14 +212,14 @@ export default function PrimarySearchAppBar({
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
             Rental Evaluator
           </Typography>
@@ -215,12 +228,12 @@ export default function PrimarySearchAppBar({
           <div className={classes.sectionDesktop}>
             <Button onclick={handleThemeChange} />
             <IconButton color="inherit" onClick={handleThemeChange}>
-              <Brightness7Icon />
+              <Brightness4Icon />
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              {/* <Badge badgeContent={17} color="secondary"> */}
-              <FavoriteIcon onClick={showFavs} />
-              {/* </Badge> */}
+              <Badge badgeContent={favoriteCount} color="secondary">
+                <FavoriteIcon onClick={showFavs} />
+              </Badge>
             </IconButton>
             <IconButton
               edge="end"
@@ -241,7 +254,7 @@ export default function PrimarySearchAppBar({
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              {/* <MoreIcon /> */}
             </IconButton>
           </div>
         </Toolbar>
