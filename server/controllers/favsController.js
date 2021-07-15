@@ -46,6 +46,7 @@ favsController.getFavs = (req, res, next) => {
       .status(500)
       .send('favsController.getFavs error: no ssid cookie');
 
+
   } else {
     //let favsArr;
 

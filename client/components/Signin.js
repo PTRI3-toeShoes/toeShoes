@@ -35,9 +35,10 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(5),
+    // height="100%"
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -85,13 +86,13 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn }) {
   if (isLoggedIn) return <Redirect to="/" />;
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box mt={3}>
-        <Card classsName={classes.card}>
-          <Box p={3}>
+    <Container component="main" maxWidth="xs" mt={5}>
+      <Box mt={8} pt={0}>
+        <Card classsName={classes.card} >
+          <Box p={3} >
             <CssBaseline />
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
+            <div className={classes.paper} >
+              <Avatar className={classes.avatar} >
                 <HouseIcon />
               </Avatar>
               {/* <div>
@@ -150,7 +151,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn }) {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/signup" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

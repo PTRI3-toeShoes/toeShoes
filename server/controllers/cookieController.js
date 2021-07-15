@@ -1,3 +1,5 @@
+const db = require('../models/dbModel');
+
 const cookieController = {};
 
 // /**
@@ -14,19 +16,20 @@ const cookieController = {};
 //finds user, sets ssid cookie
 
 cookieController.setSSIDCookie = (req, res, next) => {
-  
   const queryString = `SELECT * FROM users WHERE email = $1` 
   // User.findOne({email: req.body.email})
   db.query(queryString, [req.body.email])
     .then((data) => {
       //data comes back in array of rows
-        //data.rows[0].id
       const id = data.rows[0].id;
-      console.log('id from Cookie setter ', id)
+     // console.log('id from Cookie setter ', id)
       res.locals.cookie = id;
       res.cookie("ssid", id, {httpOnly: true});
     })
     .then(() => next())
+    .catch(e => {
+      console.log('SetSSIDCookie Error: ', e);
+    })
 }
 
 module.exports = cookieController;

@@ -7,11 +7,11 @@ import api from './axios/axios';
 import Spinner from './Components/Spinner';
 import boiseList from './PropertyTestData/boiseList';
 const MarkersList = (props) => {
-  console.log('props', props);
-  let features = [];
-  let singleLocation = {};
-  const { status } = props;
-  console.log('status ', status);
+  console.log('props in markersList', props)
+  let features = []
+  let singleLocation = {}
+  const { status } = props
+  console.log('status ', status)
 
   // setup state to toggle Popupp
   const [MapModalOpen, setMapModalOpen] = useState(false);
@@ -135,14 +135,14 @@ const MarkersList = (props) => {
   return (
     <div>
       {content}
-      {MapModalOpen && (
-        <MapModal
-          open={MapModalOpen}
-          handleClose={handleClose}
-          // propList={features}
-          prop={propDetail}
-        />
-      )}
+      {MapModalOpen && <MapModal
+        favoriteCount = {props.favoriteCount}
+        setFavoriteCount = {props.setFavoriteCount}
+        open={MapModalOpen}
+        handleClose={handleClose}
+        // propList={features}
+        prop={propDetail}
+      />}
     </div>
   );
 };

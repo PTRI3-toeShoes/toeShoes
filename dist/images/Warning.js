@@ -1,0 +1,1 @@
+module.exports="data:image/svg+xml,import * as React from 'react'; import createSvgIcon from '../../utils/createSvgIcon'; /** * @ignore - internal component. */ export default createSvgIcon( /*%23__PURE__*/React.createElement('path', %7b d: 'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z' %7d), 'Warning');";
