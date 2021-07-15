@@ -12,11 +12,13 @@ import Test from './components/Test';
 
 // const history = createBrowserHistory();
 
-import { Switch, Route, Redirect } from 'react-router-dom';
+// import { Switch, Route, Redirect } from 'react-router-dom';
 import MapView from './MapView';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { BrowserRouter as Router, useHistory, Route, Switch } from 'react-router-dom';
 
 const App = () => {
+  const history = useHistory()
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? 'dark' : 'light';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,6 +42,7 @@ const App = () => {
   });
 
   return (
+ 
     <ThemeProvider theme={darkTheme}>
       <div className="router">
         {console.log('DARKSTATE IN APP', darkState)}
@@ -60,7 +63,7 @@ const App = () => {
                 setIsLoggedIn={setIsLoggedIn}
                 setDarkState={setDarkState}
                 darkState={darkState}
- 
+
                 
                 //MainContainer props
                 isLoggedIn={isLoggedIn}
@@ -71,8 +74,8 @@ const App = () => {
 
               />
             </Route>
- 
-     
+
+    
             <Route exact path="/signin" >
               <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
@@ -86,17 +89,22 @@ const App = () => {
             <Route exact path="/register">
               <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
-            <Route exact path="/favs">
-              <NavBar
+             <Route exact path="/favs">
+              {/* <NavBar
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setDarkState={setDarkState}
                 darkState={darkState}
                 handleThemeChange={handleThemeChange}
-              />
+              /> */} 
+            
               <Favorites
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
+                setDarkState={setDarkState}
+                darkState={darkState}
+                handleThemeChange={handleThemeChange}
+                
               />
             </Route>
             <Route exact path="/test" component={Test} />
@@ -104,7 +112,9 @@ const App = () => {
         </main>
       </div>
     </ThemeProvider>
+ 
   );
+  
 };
 
 export default App;

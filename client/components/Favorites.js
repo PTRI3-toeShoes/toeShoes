@@ -11,6 +11,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import api from '../axios/axios';
 import FavModal from './FavsModal';
+import NavBar from './NavBar';
 
 //Favorite array state set by get request in component fxn
 
@@ -52,7 +53,10 @@ const useStyles = makeStyles((theme) => ({
  *   },
  * ];
  */
-function TitlebarGridList() {
+
+
+const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
+  darkState, handleThemeChange})  => {
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
   const [propDetail, setPropDetail] = useState({});
@@ -76,7 +80,7 @@ function TitlebarGridList() {
 
   const getFavs = async () => {
     await api({
-      method: 'post',
+      method: 'get',
       url: '/getFavs',
     })
       .then((res) => {
@@ -95,6 +99,13 @@ function TitlebarGridList() {
   // console.log('TILE DATA ', tileData);
   return (
     <div>
+      <NavBar
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        setDarkState={setDarkState}
+        darkState={darkState}
+        handleThemeChange={handleThemeChange}
+        />
       <Box display="flex" flexDirection="row" justifyContent="center">
         <Button variant="outlined" color="inherit" href="/">
           Map View
@@ -148,4 +159,4 @@ function TitlebarGridList() {
   );
 }
 
-export default TitlebarGridList;
+export default Favorites;

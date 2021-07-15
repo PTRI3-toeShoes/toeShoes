@@ -11,7 +11,7 @@ const HomePage = ({
   mapTheme
 
 }) => {
-  const [favoriteCount, setFavoriteCount] = useState(1);
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   return (
     <div>

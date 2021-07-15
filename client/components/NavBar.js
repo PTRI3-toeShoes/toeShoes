@@ -18,7 +18,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // import MoreIcon from '@material-ui/icons/MoreVert';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
-import Brightness2Icon from '@material-ui/icons/Brightness2';
+import {Link} from 'react-router-dom';
 // import red from '@material-ui/core/colors/red';
 
 
