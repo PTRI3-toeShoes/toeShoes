@@ -11,6 +11,7 @@ favsController.addFavs = (req, res, next) => {
   //     .send('favsController.addFavs error: nothing on body');
   // } else {
   // console.log('INSIDE ELSE');
+  console.log('SAM in addFavs' , process.env.GOOGLE_CLIENT_KEY);
 
   console.log('SSID ', req.cookies.ssid);
   //find the user

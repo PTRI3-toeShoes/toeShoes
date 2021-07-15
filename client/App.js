@@ -51,6 +51,7 @@ const App = () => {
 
         <main>
           <Switch>
+
 {/* 
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/register" component={Register} />
