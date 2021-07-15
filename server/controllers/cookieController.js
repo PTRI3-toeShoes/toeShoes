@@ -18,7 +18,17 @@ const cookieController = {};
 cookieController.setSSIDCookie = (req, res, next) => {
   const queryString = `SELECT * FROM users WHERE email = $1` 
   // User.findOne({email: req.body.email})
-  db.query(queryString, [req.body.email])
+  console.log('RGR req.body in setSSIDCookie: ', req.body); //has tokenId
+  // console.log('RGR req.locals in setSSIDCookie: ', req.locals); //Undefined
+  // console.log('RGR res.body in setSSIDCookie: ', res.body); //Undefined
+  console.log('RGR res.locals in setSSIDCookie: ', res.locals); // has oauthToken: true | isLoggedIn: true | email: 'user@email.com'
+  let email = req.body.email;
+
+  if(res.locals.oauthToken){
+    email = res.locals.email;
+  }
+  
+  db.query(queryString, [email])
     .then((data) => {
       //data comes back in array of rows
       const id = data.rows[0].id;

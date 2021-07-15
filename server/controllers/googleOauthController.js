@@ -1,7 +1,7 @@
 const config = require('../../config.json');
 const googleOauthController = {};
 const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client("801898613245-b0r1db1jmhf52qgu6k21bto13ts3jreg.apps.googleusercontent.com");
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_KEY);
 
 googleOauthController.googleLogin = async (req, res, next) => {
     const tokenId = req.body.tokenId;
@@ -32,15 +32,19 @@ googleOauthController.googleLogin = async (req, res, next) => {
     // }
     try{
     const ticket = await client.verifyIdToken({
-        idToken: tokenId, audience: '801898613245-b0r1db1jmhf52qgu6k21bto13ts3jreg.apps.googleusercontent.com'});
+        idToken: tokenId, audience: process.env.GOOGLE_CLIENT_KEY});
     
     const payload = ticket.getPayload();
     const { email, sub, email_verified } = payload;
 
     console.log('RGR email, sub in gOauthController: ', email, sub);
     console.log('SLA whole payload ', payload);
-
-    return res.status(200).send({ isLoggedIn: true });
+    res.locals.oauthToken = true;
+    res.locals.isLoggedIn = true;
+    res.locals.email = email;
+    console.log('res.locals inside of googleOauthController: ', res.locals);
+    // return res.status(200).send({ isLoggedIn: true });
+    return next();
     
     } catch(error) {
         res.status(500).json({ message: 'Error in googleOauthController' });

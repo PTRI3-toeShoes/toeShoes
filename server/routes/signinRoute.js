@@ -24,7 +24,6 @@ router.post(
     // userController.verifyLogin,
     // cookieController.setSSIDCookie,
     // sessionController.startSession,
-    googleOauthController.googleLogin
   ],
   (req, res) => {
     return res.status(209).send({ isLoggedIn: true });
