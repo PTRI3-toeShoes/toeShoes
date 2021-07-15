@@ -12,7 +12,7 @@ const { getRoutes } = require('get-routes');
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 const dotenv = require('dotenv');
-dotenv.config({path: path.join(__dirname, '.env')});
+dotenv.config();
 //route imports
 const signupRouter = require('./routes/signupRoute');
 const signinRouter = require('./routes/signinRoute');
