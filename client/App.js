@@ -43,16 +43,14 @@ const App = () => {
 
         <main>
           <Switch>
-            {/* <UserContext.Provider value={{isLoggedIn, setIsLoggedIn}}> */}
-            <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/favs" component={Favorites} />
+            {/* <Route exact path="/signin" component={SignIn} /> */}
+            {/* <Route exact path="/register" component={Register} /> */}
+            {/* <Route exact path="/favs" component={Favorites} /> */}
             <Route exact path="/">
               <NavBar
-                handleThemeChange={handleThemeChange}
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
-                setDarkState={setDarkState} 
+                setDarkState={setDarkState}
                 darkState={darkState}
                 handleThemeChange={handleThemeChange}
               />
@@ -69,14 +67,13 @@ const App = () => {
               <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
             <Route exact path="/favs">
-              <NavBar 
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  setDarkState={setDarkState} 
-                  darkState={darkState} 
-
-                  handleThemeChange={handleThemeChange}
-                />
+              <NavBar
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                setDarkState={setDarkState}
+                darkState={darkState}
+                handleThemeChange={handleThemeChange}
+              />
               <Favorites
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}

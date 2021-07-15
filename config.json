@@ -1,0 +1,9 @@
+{
+    "GOOGLE_CLIENT_ID": "801898613245-b0r1db1jmhf52qgu6k21bto13ts3jreg.apps.googleusercontent.com",
+    "GOOGLE_CLIENT_SECRET": "yca6cOM-FPykUmyToaaJHPO2",
+    "UI_ROOT_URI": "http://localhost:8080",
+    "SERVER_ROOT_URI": "http://localhost:3000",
+    "JWT_SECRET": "shhhhhhhh",
+    "COOKIE_NAME": "auth_token"
+}
+
