@@ -1,6 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/userController');
-// const sessionController = require('../controllers/sessionController');
+const sessionController = require('../controllers/sessionController');
 const cookieController = require('../controllers/cookieController');
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post(
   [
     userController.verifyLogin,
     cookieController.setSSIDCookie,
-    //sessionController.startSession,
+    sessionController.startSession,
   ],
   (req, res) => {
     return res.status(209).send({ isLoggedIn: true });
