@@ -19,10 +19,7 @@ import GoogleIcon from './GoogleIcon';
 import api from '../axios/axios';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import GoogleLogin from 'react-google-login';
-const config = require('../../config.json');
-import { UserContext } from '../contexts/UserContext';
-// const [isLoggedIn, setIsLoggedIn] = useContext(UserContext);
+import GoogleLoginButton from './GoogleLoginButton';
 
 function Copyright() {
   return (
@@ -98,35 +95,35 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
 
   if (isLoggedIn) return <Redirect to="/" />;
 
-  function handleUpdateLoginState(loggedInState) {
-    console.log('isLoggedIn: ', isLoggedIn);
-    console.log('RGR loggedInState variable: ', loggedInState);
-    setIsLoggedIn(loggedInState);
-    console.log('RGR State Updated to isLoggedIn: ', isLoggedIn);
+  // function handleUpdateLoginState(loggedInState) {
+  //   console.log('isLoggedIn: ', isLoggedIn);
+  //   console.log('RGR loggedInState variable: ', loggedInState);
+  //   setIsLoggedIn(loggedInState);
+  //   console.log('RGR State Updated to isLoggedIn: ', isLoggedIn);
     
-  }
+  // }
 
-  const responseSuccessGoogle = (response) => {
-    console.log('Response Success in signin: ', response);
-    console.log('response token: ', response.tokenObj.id_token);
-    //console.log('RGR props: ', props);
-    api({
-      method: 'post',
-      url: '/googlelogin',
-      data: {
-        tokenId: response.tokenObj.id_token
-      }
-    }).then(response => {
-      //console.log('isLogged in on response ', response.data.isLoggedIn);
-      //updateLoggedInState
-      handleUpdateLoginState(response.data.isLoggedIn);
-    }).catch(erro => {
-      console.log('IS ERROR ', erro);
-    });
-  }
-  const responseErrorGoogle = (response) => {
-    console.log('Response Error in signin: ', response);
-  }
+  // const responseSuccessGoogle = (response) => {
+  //   console.log('Response Success in signin: ', response);
+  //   console.log('response token: ', response.tokenObj.id_token);
+  //   //console.log('RGR props: ', props);
+  //   api({
+  //     method: 'post',
+  //     url: '/googlelogin',
+  //     data: {
+  //       tokenId: response.tokenObj.id_token
+  //     }
+  //   }).then(response => {
+  //     //console.log('isLogged in on response ', response.data.isLoggedIn);
+  //     //updateLoggedInState
+  //     handleUpdateLoginState(response.data.isLoggedIn);
+  //   }).catch(erro => {
+  //     console.log('IS ERROR ', erro);
+  //   });
+  // }
+  // const responseErrorGoogle = (response) => {
+  //   console.log('Response Error in signin: ', response);
+  // }
 
   return (
     <Container component="main" maxWidth="xs" mt={5}>
@@ -219,13 +216,14 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
                 {' '}
                 Sign In With Google
               </Button> */}
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId= '801898613245-b0r1db1jmhf52qgu6k21bto13ts3jreg.apps.googleusercontent.com'
                 buttonText='Login with google'
                 onSuccess={responseSuccessGoogle}
                 onFailure={responseErrorGoogle}
                 cookiePolicy={'single_host_origin'}
-              />
+              /> */}
+              <GoogleLoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
             </div>
             <Box mt={8}>
               <Copyright />
