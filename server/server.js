@@ -9,7 +9,7 @@ const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
 const { getRoutes } = require('get-routes');
 //direct controller imports
-const sessionController = require('./controllers/sessionController');
+// const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
 
 //route imports
@@ -25,9 +25,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 // server test route
-app.use('/testRoute', (req, res) => {
-  //test stuff here
-});
+// app.use('/testRoute', (req, res) => {
+//   //test stuff here
+// });
 
 //signup route
 app.use('/register', signupRouter);
@@ -45,14 +45,15 @@ app.use('/addFav', addFavsRouter);
 app.use('/getFavs', getFavsRouter);
 
 //check login route
-app.use('/checkLogin', sessionController.isLoggedIn, (req, res) => {
+app.use('/checkLogin', //sessionController.isLoggedIn, 
+(req, res) => {
   return res.status(299).send('user is logged in');
 });
 
 //serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
-app.get('/', cookieController.setCookie, (req, res) => {
-  return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
-});
+// app.get('/', cookieController.setCookie, (req, res) => {
+//   return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
+// });
 
 // print all routes
 // const routes = getRoutes(app);

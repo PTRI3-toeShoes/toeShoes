@@ -11,13 +11,14 @@ favsController.addFavs = (req, res, next) => {
   //     .send('favsController.addFavs error: nothing on body');
   // } else {
   // console.log('INSIDE ELSE');
-
+  console.log('SAM in addFavs' , req.body.favorite.ZPID);
   console.log('SSID ', req.cookies.ssid);
   //find the user
   // User.findById(req.cookies)
 
-  const queryString = `INSERT INTO favorites (zpid, user_id) VALUES ($1, $2)`;
-  db.query(queryString, [req.body.favorite.zpid, req.cookies.ssid])
+  const queryString = `INSERT INTO favorites (zpid, user_id) VALUES ($1, 1)`;
+
+  db.query(queryString, [req.body.favorite.ZPID])
   // MapModal.js on front end has console log on line 43 that logs req.body.favorite
 
   // User.findById(req.cookies.ssid)
@@ -43,14 +44,15 @@ favsController.getFavs = (req, res, next) => {
   if (!req.cookies.ssid) {
     return res
       .status(500)
-      .send('favsController.getFavs error: no email property');
+      .send('favsController.getFavs error: no ssid cookie');
+
   } else {
     //let favsArr;
 
-    const queryString = `SELECT * FROM favorites WHERE user_id = $1`;
+    const queryString = `SELECT zpid FROM favorites WHERE user_id = 1`;
 
 
-    User.findById(req.cookies.ssid)
+    db.query(queryString)
       .then((data) => {
         //console.log(user);
         res.locals.favsArr = data.rows; //user.favorites;

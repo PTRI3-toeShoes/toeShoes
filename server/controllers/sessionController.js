@@ -1,6 +1,5 @@
 //const session = require('express-session');
 const Session = require('../models/sessionModel');
-const mongoose = require('mongoose');
 
 const sessionController = {};
 

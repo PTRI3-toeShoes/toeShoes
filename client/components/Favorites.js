@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
  *   },
  * ];
  */
-function TitlebarGridList() {
+function Favorites() {
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
   const [propDetail, setPropDetail] = useState({});
@@ -76,7 +76,7 @@ function TitlebarGridList() {
 
   const getFavs = async () => {
     await api({
-      method: 'post',
+      method: 'GET',
       url: '/getFavs',
     })
       .then((res) => {
@@ -148,4 +148,4 @@ function TitlebarGridList() {
   );
 }
 
-export default TitlebarGridList;
+export default Favorites;
