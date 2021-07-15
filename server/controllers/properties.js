@@ -81,7 +81,7 @@ middlewares.getPropertiesForSale = async (req, res, next) => {
                 ZPID: zpid,
               },
               geometry: {
-                coordinates: [longitude, latitude],
+                coordinates: [longitude,latitude],
                 type: 'Point',
               },
             })

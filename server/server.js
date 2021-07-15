@@ -67,7 +67,7 @@ app.use((err, req, res, next) => {
     message: { err: 'An unknown error occurred.' },
   };
   Object.assign(defaultErr, err);
-  console.log(defaultErr.log);
+  //console.log(defaultErr.log);
   return res.status(defaultErr.status).json(defaultErr.message);
 });
 

@@ -10,7 +10,7 @@ const salt_rounds = 10;
 userController.createUser = (req, res, next) => {
   console.log('KEF IN createUser middleware');
   //check request for correct data
-  if (req.body.name && req.body.password) {
+  if (req.body.email && req.body.password) {
     //perform encryption
     bcrypt.hash(req.body.password, salt_rounds, (error, hash) => {
       //error check
