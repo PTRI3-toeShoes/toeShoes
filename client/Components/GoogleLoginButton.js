@@ -1,7 +1,9 @@
 import React from 'react';
 import api from '../axios/axios';
 import GoogleLogin from 'react-google-login';
-
+/*********************
+ * Differentiate between a sign up and a sign in
+************************** */
 export default function GoogleLoginButton({isLoggedIn, setIsLoggedIn}){
 
     function handleUpdateLoginState(loggedInState) {

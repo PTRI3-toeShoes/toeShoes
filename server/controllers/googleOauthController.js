@@ -3,6 +3,10 @@ const googleOauthController = {};
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_KEY);
 
+/*********************
+ * Differentiate between a sign up and a sign in
+************************** */
+
 googleOauthController.googleLogin = async (req, res, next) => {
     const tokenId = req.body.tokenId;
     console.log('RGR tokenId: ', tokenId)
