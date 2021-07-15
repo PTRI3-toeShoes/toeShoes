@@ -23,7 +23,6 @@ import GoogleLogin from 'react-google-login';
 const config = require('../../config.json');
 import { UserContext } from '../contexts/UserContext';
 // const [isLoggedIn, setIsLoggedIn] = useContext(UserContext);
-import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -64,21 +63,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ isLoggedIn, setIsLoggedIn }) {
+//
+export default function SignIn({isLoggedIn, setIsLoggedIn}) {
   const classes = useStyles();
   const history = useHistory();
   //state to store input field values
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  console.log('SIGN IN isLoggedIn: ', isLoggedIn);
+  //const { isLoggedInBool, updateLoggedInStateBool } = props;
+  console.log('SIGN RGR isLoggedIn: ', isLoggedIn);
+  console.log('SIGN RGR setIsLoggedIn: ', typeof(setIsLoggedIn));
   // const [ isUserLoggedIn, setIsUserLoggedIn ] = useContext(UserContext);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+// setLightState(prevLightState => ({...prevLightState, ...newState}))
   // console.log('history ', history)
   //submit fxn to make http call to BE
   const handleSubmit = (e) => {
     e.preventDefault();
     //axios or api here? Which route should handle this...
-    axios({
+    api({
       method: 'post',
       url: '/signin',
       data: {
@@ -94,8 +98,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn }) {
   if (isLoggedIn) return <Redirect to="/" />;
 
   function handleUpdateLoginState(loggedInState) {
-    console.log('RGR ', );
-    console.log('RGR inside fo handleUpdateLoginState!');
+    console.log('isLoggedIn: ', isLoggedIn);
     console.log('RGR loggedInState variable: ', loggedInState);
     setIsLoggedIn(loggedInState);
     console.log('RGR State Updated to isLoggedIn: ', isLoggedIn);

@@ -68,13 +68,8 @@ const MapView = () => {
 
   console.log('markers data ', markers);
 
-<<<<<<< HEAD
   useEffect( () => {
-    const defaultLocation = 'Los, CA'
-=======
-  useEffect(() => {
-    const defaultLocation = 'Mountain View, CA';
->>>>>>> dev
+    const defaultLocation = 'Los Angeles, CA'
     const fetchMarkers = async () => {
       // update API call status
       setStatus('loading');
@@ -91,7 +86,6 @@ const MapView = () => {
         // update Markers state
         setMarkers(results);
         // update API call status
-<<<<<<< HEAD
         setStatus('done')
 
         // const res = await api({
@@ -107,11 +101,6 @@ const MapView = () => {
         // setStatus('done')
       }catch(err) {
         console.error(`fetchMarkers call failed ${err}`)
-=======
-        setStatus('done');
-      } catch (err) {
-        console.error(`fetchMarkers call failed ${err}`);
->>>>>>> dev
         // update API call status
         setStatus('error');
       }

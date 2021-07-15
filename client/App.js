@@ -30,23 +30,28 @@ const App = () => {
     },
   });
 
+ // setLightState(prevLightState => ({...prevLightState, ...newStat
   const updateLoggedInState = (logBool) => {
+    console.log('In updateLoggedInState');
+    console.log('logBool: ', logBool);
+    console.log('isLoggedIn: ', isLoggedIn);
+    console.log('setIsLoggedIn: ', typeof(setIsLoggedIn));
     setIsLoggedIn(logBool);
+    console.log('typeof setIsLoggedIn: ', typeof(setIstLoggedIn));
   }
 
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="router">
         {console.log('DARKSTATE IN APP', darkState)}
-
+        {console.log('isLoggedIn inside of app.js: ', isLoggedIn)}
+        {console.log('typeof updateLoggedInState inside of app.js: ', typeof(updateLoggedInState))}
         {/* <NavBar handleThemeChange={handleThemeChange} darkState={darkState} /> */}
 
         <main>
           <Switch>
-            {/* <Route exact path="/signin" component={SignIn} /> */}
-            {/* <Route exact path="/register" component={Register} /> */}
-            {/* <Route exact path="/favs" component={Favorites} /> */}
-            <Route exact path="/">
+            {/* </UserContext.Provider> */}
+            <Route exact path="/"> 
               <NavBar
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
@@ -60,7 +65,9 @@ const App = () => {
               />
             </Route>
             <Route exact path="/signin">
-              <SignIn isLoggedIn={isLoggedIn} onChange={updateLoggedInState}/>
+              <SignIn  
+               isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn} />
             </Route>
 
             <Route exact path="/register">
