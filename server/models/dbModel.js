@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 
+console.log('RGR process.env.SQL_STRING in dbModel: ', process.env.SQL_STRING);
 
 const pool = new Pool ({
     connectionString: process.env.SQL_STRING

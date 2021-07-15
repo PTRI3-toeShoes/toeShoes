@@ -8,19 +8,20 @@ import {
 
 import ImgMediaCard from "./ImgMediaCard";
 
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         "& > *": {
-//             margin: theme.spacing(1)
-//         }
-//     }
-// }));
+const useStyles = makeStyles((theme) => ({
+    root: {
+        "& > *": {
+            margin: theme.spacing(1)
+        }
+    }
+}));
 
-// const classes = useStyles();
 
 
 export default function RanksContainer() {
-    //logic
+
+    // const classes = useStyles();
+    // some meaningful logic
 
 
     //ultimate refactor - render mapping the properties onto a div

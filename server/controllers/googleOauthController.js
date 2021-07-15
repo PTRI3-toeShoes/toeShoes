@@ -40,7 +40,8 @@ googleOauthController.googleLogin = async (req, res, next) => {
     
     const payload = ticket.getPayload();
     const { email, sub, email_verified } = payload;
-
+    console.log('process.env.SQL_STRING inside of oauth controller: ', process.env.SQL_STRING);
+    console.log('process.env.GOOGLE_CLIENT_KEY inside of oauth controller: ', process.env.GOOGLE_CLIENT_KEY);
     console.log('RGR email, sub in gOauthController: ', email, sub);
     console.log('SLA whole payload ', payload);
     res.locals.oauthToken = true;

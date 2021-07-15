@@ -54,7 +54,7 @@ const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
         Search target
       </button>
       <pre id="listings"></pre> */}
-      <RanksContainer/>
+      {/* <RanksContainer/> */}
     </Container>
   );
 };

@@ -27,9 +27,11 @@ cookieController.setSSIDCookie = (req, res, next) => {
   if(res.locals.oauthToken){
     email = res.locals.email;
   }
+  console.log('RGR process.env.SQL_STRING: ', process.env.SQL_STRING);
   
   db.query(queryString, [email])
     .then((data) => {
+      console.log('RGR data in cookieCon: ', data);
       //data comes back in array of rows
       const id = data.rows[0].id;
      // console.log('id from Cookie setter ', id)

@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
+
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
@@ -11,7 +11,8 @@ const { getRoutes } = require('get-routes');
 //direct controller imports
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
-
+const dotenv = require('dotenv');
+dotenv.config({path: path.join(__dirname, '.env')});
 //route imports
 const signupRouter = require('./routes/signupRoute');
 const signinRouter = require('./routes/signinRoute');
