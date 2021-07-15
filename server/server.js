@@ -20,12 +20,18 @@ const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
 
+//mongoose.set('useNewUrlParser', true);
+ mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 //db connection
 //note - db connection issues?  check for console logs in terminal
 mongoose
   .connect(
     'mongodb+srv://admin:adam123@cluster0.tqcgi.mongodb.net/scratch_project?retryWrites=true&w=majority'
-  )
+
+    ,{ useNewUrlParser: true })
   .then(
     console.log('Connected to DB: ENV Test String: ', process.env.TEST_STRING)
   )
@@ -78,7 +84,7 @@ app.use((err, req, res, next) => {
     message: { err: 'An unknown error occurred.' },
   };
   Object.assign(defaultErr, err);
-  console.log(defaultErr.log);
+  //console.log(defaultErr.log);
   return res.status(defaultErr.status).json(defaultErr.message);
 });
 

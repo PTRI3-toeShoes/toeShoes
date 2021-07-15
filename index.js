@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import App from './client/App';
-import { BrowserRouter } from 'react-router-dom';
-
+// import { Router } from "react-router";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  // <React.StrictMode>
+    <Router >
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </Router>,
+  // </React.StrictMode>,
   document.getElementById('entry-point')
 );

@@ -8,8 +8,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Typography, Grid, Card, Divider, Box } from '@material-ui/core';
 import api from '../axios/axios';
 
-const MapModal = ({ open, handleClose, prop }) => {
-  console.log(prop)
+const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) => {
+  console.log("prop in map model",prop)
   //   const property = propDetail.targetForSale.features[0];
   const property = prop.properties;
 
@@ -38,6 +38,7 @@ const MapModal = ({ open, handleClose, prop }) => {
   const favIcon = clickedFav ? <FavoriteIcon /> : <FavoriteBorderIcon />;
   const handleAddFavs = (e) => {
     e.preventDefault();
+    setFavoriteCount(favoriteCount+1);
     setClickedFav(!clickedFav);
     const favorite = property;
     console.log('FAVORITE', favorite);
