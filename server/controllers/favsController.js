@@ -48,12 +48,13 @@ favsController.getFavs = (req, res, next) => {
   } else {
     //let favsArr;
 
-    const queryString = `SELECT * FROM favorites WHERE user_id = $1`;
+    const queryString = `SELECT zpid FROM favorites WHERE user_id = 1`;
 
 
-    User.findById(req.cookies.ssid)
+    db.query(queryString)
       .then((data) => {
         //console.log(user);
+        console.log("SAM in CONTROLLER ", data.rows)
         res.locals.favsArr = data.rows; //user.favorites;
       })
       .then(() => next())
