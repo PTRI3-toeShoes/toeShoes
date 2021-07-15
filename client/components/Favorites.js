@@ -54,9 +54,9 @@ const useStyles = makeStyles((theme) => ({
  * ];
  */
 
+
 const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   darkState, handleThemeChange})  => {
-
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
   const [propDetail, setPropDetail] = useState({});
@@ -80,7 +80,7 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
 
   const getFavs = async () => {
     await api({
-      method: 'GET',
+      method: 'get',
       url: '/getFavs',
     })
       .then((res) => {

@@ -16,7 +16,7 @@ const calcMortgage = (price, int, down = 0.2, years = 30) => {
 };
 
 middlewares.getPropertiesForSale = async (req, res, next) => {
-  //console.log(req.query);
+  console.log(req.query);
   const url = new URL(
     'https://zillow-com1.p.rapidapi.com/propertyExtendedSearch'
   );
@@ -42,7 +42,7 @@ middlewares.getPropertiesForSale = async (req, res, next) => {
   //   bedsMax: '2'
   // };
   url.search = new URLSearchParams(params).toString();
-  //console.log(url);
+  console.log(url);
   const result = await fetch(url, { method: 'GET', headers: headers }).then(
     (res) => res.json()
   );
@@ -105,7 +105,7 @@ middlewares.getTargetForSale = async (req, res, next) => {
     zpid: req.params.zpid,
   };
   url.search = new URLSearchParams(params).toString();
-  //console.log(url);
+  console.log(url);
   const result = await fetch(url, { method: 'GET', headers: headers }).then(
     (res) => res.json()
   );
@@ -185,7 +185,7 @@ middlewares.getPropertiesForRental = async (req, res, next) => {
   //   'bedsMax': '2'
   // };
   url.search = new URLSearchParams(req.params).toString();
-  //console.log(url);
+  console.log(url);
   const result = await fetch(url, { method: 'GET', headers: headers }).then(
     (res) => res.json()
   );

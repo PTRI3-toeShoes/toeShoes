@@ -51,11 +51,13 @@ const App = () => {
 
         <main>
           <Switch>
+{/* 
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/favs" component={Favorites} />
-            <Route exact path="/">
-              <NavBar
+            <Route exact path="/favs" component={Favorites} /> */}
+            <Route path="/" exact component={HomePage}>
+              <HomePage
+                //Navabar props
                 handleThemeChange={handleThemeChange}
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
