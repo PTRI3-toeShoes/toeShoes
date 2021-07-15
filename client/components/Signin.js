@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import GoogleIcon from './GoogleIcon';
 import api from '../axios/axios';
-import { useHistory } from 'react-router-dom'
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+const config = require('../../config.json');
+import { UserContext } from '../contexts/UserContext';
+// const [isLoggedIn, setIsLoggedIn] = useContext(UserContext);
 
 function Copyright() {
   return (
@@ -58,18 +63,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({isLoggedIn, setIsLoggedIn}) {
+export default function SignIn({ isLoggedIn , setIsLoggedIn }) {
   const classes = useStyles();
   const history = useHistory();
   //state to store input field values
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [ isUserLoggedIn, setIsUserLoggedIn ] = useContext(UserContext);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   console.log('history ', history)
   //submit fxn to make http call to BE
   const handleSubmit = (e) => {
     e.preventDefault();
-    api({
+    //axios or api here? Which route should handle this...
+    axios({
       method: 'post',
       url: '/signin',
       data: {
@@ -79,11 +87,41 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
     }).then((res) => {
       console.log(res.data.isLoggedIn);
       setIsLoggedIn(res.data.isLoggedIn)
-      
     });
   };
 
   if(isLoggedIn) return <Redirect to="/"/>;
+
+  function handleUpdateLoginState(loggedInState) {
+    console.log('RGR ', );
+    console.log('RGR inside fo handleUpdateLoginState!');
+    console.log('RGR loggedInState variable: ', loggedInState);
+    setIsLoggedIn(loggedInState);
+    console.log('RGR State Updated to isLoggedIn: ', isLoggedIn);
+    
+  }
+
+  const responseSuccessGoogle = (response) => {
+    console.log('Response Success in signin: ', response);
+    console.log('response token: ', response.tokenObj.id_token);
+    //console.log('RGR props: ', props);
+    api({
+      method: 'post',
+      url: '/googlelogin',
+      data: {
+        tokenId: response.tokenObj.id_token
+      }
+    }).then(response => {
+      //console.log('isLogged in on response ', response.data.isLoggedIn);
+      //updateLoggedInState
+      handleUpdateLoginState(response.data.isLoggedIn);
+    }).catch(erro => {
+      console.log('IS ERROR ', erro);
+    });
+  }
+  const responseErrorGoogle = (response) => {
+    console.log('Response Error in signin: ', response);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -166,7 +204,7 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
                 <Divider />
               </Typography>
 
-              <Button
+              {/* <Button
                 startIcon={<GoogleIcon />}
                 fullWidth
                 variant="contained"
@@ -175,7 +213,14 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
               >
                 {' '}
                 Sign In With Google
-              </Button>
+              </Button> */}
+              <GoogleLogin
+                clientId= '801898613245-b0r1db1jmhf52qgu6k21bto13ts3jreg.apps.googleusercontent.com'
+                buttonText='Login with google'
+                onSuccess={responseSuccessGoogle}
+                onFailure={responseErrorGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
             </div>
             <Box mt={8}>
               <Copyright />

@@ -19,6 +19,7 @@ const signinRouter = require('./routes/signinRoute');
 const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
+const googleOauthRouter = require('./routes/googleOauthRoute');
 
 //db connection
 //note - db connection issues?  check for console logs in terminal
@@ -42,6 +43,9 @@ app.use('/testRoute', (req, res) => {
 
 //signup route
 app.use('/register', signupRouter);
+
+//oauth signin route
+app.use('/googlelogin', googleOauthRouter);
 
 //signin route
 app.use('/signin', signinRouter);

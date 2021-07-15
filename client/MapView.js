@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import MarkersList from './MarkersList';
 import SearchBar from './Components/SearchBar';
+import api from './axios/axios';
 
 const mapboxApiKey = 'pk.eyJ1IjoiYXJhbWF5IiwiYSI6ImNrcWI2Z3JjOTAxazQydnBlbHIyNWprbXAifQ.HNWa9dA4WXSefOVnqhIVZA';
 
@@ -69,14 +70,13 @@ const MapView = () => {
   console.log('markers data ', markers)
 
   useEffect( () => {
-    const defaultLocation = 'Mountain View, CA'
+    const defaultLocation = 'Los, CA'
     const fetchMarkers = async () => {
       // update API call status
       setStatus('loading')
       try {
         const res = await fetch(`/api/properties?location=${defaultLocation}`, {
           method: 'POST',
-
           headers: {
             'Content-type': 'application/json'
           }
@@ -88,6 +88,18 @@ const MapView = () => {
         setMarkers(results)
         // update API call status
         setStatus('done')
+
+        // const res = await api({
+        //   method: 'post',
+        //   url: `/properties?location=${defaultLocation}`
+        // }).then((res) => {
+        //   console.log('Res from axios call in MapView: ', res);
+        // });
+        // const results = await res.json();
+        // // update Markers state
+        // setMarkers(results)
+        // // update API call status
+        // setStatus('done')
       }catch(err) {
         console.error(`fetchMarkers call failed ${err}`)
         // update API call status
@@ -116,8 +128,10 @@ const MapView = () => {
 
   const [viewport, setViewport] = useState({
     // default location - Mountain View, CA
-    longitude: -122.08200104737605,
-    latitude: 37.38560001105436,
+    // longitude: -122.08200104737605,
+    // latitude: 37.38560001105436,
+    longitude: -118.243683,
+    latitude: 34.052235,
     zoom: 12,
     bearing: 0,
     pitch: 0,
