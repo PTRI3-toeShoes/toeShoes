@@ -45,14 +45,14 @@ app.use('/addFav', addFavsRouter);
 app.use('/getFavs', getFavsRouter);
 
 //check login route
-app.use('/checkLogin', sessionController.isLoggedIn, (req, res) => {
+app.use('/checkLogin', /* sessionController.isLoggedIn,*/ (req, res) => {
   return res.status(299).send('user is logged in');
 });
 
-//serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
-app.get('/', cookieController.setCookie, (req, res) => {
-  return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
-});
+// //serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
+// app.get('/', cookieController.setCookie, (req, res) => {
+//   return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
+// });
 
 // print all routes
 // const routes = getRoutes(app);
