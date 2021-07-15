@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const cors = require('cors');
@@ -20,22 +19,6 @@ const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
 
-//mongoose.set('useNewUrlParser', true);
- mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useUnifiedTopology', true);
-
-//db connection
-//note - db connection issues?  check for console logs in terminal
-mongoose
-  .connect(
-    'mongodb+srv://admin:adam123@cluster0.tqcgi.mongodb.net/scratch_project?retryWrites=true&w=majority'
-
-    ,{ useNewUrlParser: true })
-  .then(
-    console.log('Connected to DB: ENV Test String: ', process.env.TEST_STRING)
-  )
-  .catch((err) => console.log('Mongo DB Connection Error:', err));
 
 app.use(cors());
 app.use(express.json());
@@ -62,14 +45,14 @@ app.use('/addFav', addFavsRouter);
 app.use('/getFavs', getFavsRouter);
 
 //check login route
-app.use('/checkLogin', sessionController.isLoggedIn, (req, res) => {
+app.use('/checkLogin', /* sessionController.isLoggedIn,*/ (req, res) => {
   return res.status(299).send('user is logged in');
 });
 
-//serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
-app.get('/', cookieController.setCookie, (req, res) => {
-  return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
-});
+// //serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
+// app.get('/', cookieController.setCookie, (req, res) => {
+//   return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
+// });
 
 // print all routes
 // const routes = getRoutes(app);
