@@ -1,0 +1,1 @@
+module.exports="data:image/svg+xml,import * as React from 'react'; import createSvgIcon from '../../utils/createSvgIcon'; /** * @ignore - internal component. */ export default createSvgIcon( /*%23__PURE__*/React.createElement('path', %7b d: 'M7 10l5 5 5-5z' %7d), 'ArrowDropDown');";

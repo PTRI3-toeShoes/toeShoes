@@ -51,6 +51,7 @@ app.use('/checkLogin', //sessionController.isLoggedIn,
 });
 
 //serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
+
 // app.get('/', cookieController.setCookie, (req, res) => {
 //   return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
 // });
@@ -68,7 +69,7 @@ app.use((err, req, res, next) => {
     message: { err: 'An unknown error occurred.' },
   };
   Object.assign(defaultErr, err);
-  console.log(defaultErr.log);
+  //console.log(defaultErr.log);
   return res.status(defaultErr.status).json(defaultErr.message);
 });
 
