@@ -7,7 +7,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import MarkersList from './MarkersList';
 import SearchBar from './Components/SearchBar';
@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+  // paper: {
+  //   padding: theme.spacing(2),
+  //   textAlign: 'center',
+  //   color: theme.palette.text.secondary,
+  // },
 }));
 
-const MapView = () => {
+const MapView = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   // set Markers state
   // 190 E 72nd St APT 11B, New York, NY 10021
   /** Marker data should look like this
@@ -170,12 +170,18 @@ const MapView = () => {
           <ReactMapGL
             ref={mapRef}
             mapboxApiAccessToken={mapboxApiKey}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
+            mapStyle={mapTheme}
+            // mapStyle="mapbox://styles/mapbox/streets-v11"
             {...viewport}
             {...mapStyle}
             onViewportChange={handleViewportChange}
           >
-            <MarkersList props={markers} status={status} />
+            <MarkersList 
+              props={markers}
+              status={status}   
+              setFavoriteCount = {setFavoriteCount} 
+              favoriteCount = {favoriteCount}          
+            />
 
             <div style={navStyle}>
               <NavigationControl />
@@ -191,13 +197,13 @@ const MapView = () => {
           </ReactMapGL>
         </Grid>
       </div>
-      {/* <div>
-        <Paper className={classes.paper}>
+      <div>
+        {/* <Paper className={classes.paper}>
           xs=12 lat: {viewport.latitude} <br />
           lng: {viewport.longitude} <br />
           zoom: {viewport.zoom}
-        </Paper>
-      </div> */}
+        </Paper> */}
+      </div>
     </Container>
   );
 };

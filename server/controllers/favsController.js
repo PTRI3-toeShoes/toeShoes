@@ -1,4 +1,5 @@
-const User = require('../models/userModel');
+const db = require('../models/dbModel');
+
 const favsController = {};
 
 favsController.addFavs = (req, res, next) => {
@@ -14,18 +15,23 @@ favsController.addFavs = (req, res, next) => {
   console.log('SSID ', req.cookies.ssid);
   //find the user
   // User.findById(req.cookies)
-  User.findById(req.cookies.ssid)
-    .then((user) => {
-      console.log('INSIDE FIND', user);
-      //grab the existing favs array
-      const favs = user.favorites;
-      //push new fav onto it
-      favs.push(req.body.favorite);
-      //set the new favs array to the user favorites
-      user.favorites = favs;
-      //save it
-      user.save();
-    })
+
+  const queryString = `INSERT INTO favorites (zpid, user_id) VALUES ($1, $2)`;
+  db.query(queryString, [req.body.favorite.zpid, req.cookies.ssid])
+  // MapModal.js on front end has console log on line 43 that logs req.body.favorite
+
+  // User.findById(req.cookies.ssid)
+  //   .then((user) => {
+  //     console.log('INSIDE FIND', user);
+  //     //grab the existing favs array
+  //     const favs = user.favorites;
+  //     //push new fav onto it
+  //     favs.push(req.body.favorite);
+  //     //set the new favs array to the user favorites
+  //     user.favorites = favs;
+  //     //save it
+  //     user.save();
+  //   })
     .then(() => next())
     .catch((err) => console.log('favscontroller.addfavs error, ', err.message));
   // }
@@ -37,13 +43,17 @@ favsController.getFavs = (req, res, next) => {
   if (!req.cookies.ssid) {
     return res
       .status(500)
-      .send('favsController.getFavs error: no email property');
+      .send('favsController.getFavs error: no cookies line 40');
   } else {
     //let favsArr;
+
+    const queryString = `SELECT * FROM favorites WHERE user_id = $1`;
+
+
     User.findById(req.cookies.ssid)
-      .then((user) => {
-        console.log(user);
-        res.locals.favsArr = user.favorites;
+      .then((data) => {
+        //console.log(user);
+        res.locals.favsArr = data.rows; //user.favorites;
       })
       .then(() => next())
       .catch((err) => console.log('favscontroller.getFavs error, ', err));
