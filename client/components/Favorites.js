@@ -11,8 +11,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import api from '../axios/axios';
 import FavModal from './FavsModal';
-import NavBar from './NavBar';
-
+import NavBar from './NavBar'; 
 //Favorite array state set by get request in component fxn
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +60,7 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
   const [propDetail, setPropDetail] = useState({});
+  const [favsArr, setFavsArr] = useState([])
   const [gotFavs, setGotFavs] = useState(false);
   const [favDetailsOpen, setFavDetailsOpen] = useState(false);
 
@@ -79,6 +79,14 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
     setFavDetailsOpen(false);
   };
 
+  const favForward= () =>{
+    setTileData(favsArr[1]);
+
+  }
+  const favBackwards = () =>{
+    
+  }
+
 
   //get request to retrieve favorites
 
@@ -96,14 +104,16 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
 
   };
   useEffect(async() => {
-    const favsArr = await getFavs()
+    const favsArr = [{'zpid':20153061},{'zpid':39777013},{'zpid':39774879}]
+    // const favsArr = await getFavs()
     //favsArr is populated with zillow zpids. On successful getting of that array can I query for the first fav here?
     if(favsArr){
       const response = await api({
         method: 'GET',
         url: `/zillowFavQuery/${favsArr[0].zpid}`
       })
-
+      setFavsArr(favsArr)
+      setTileData(response.data.features[0].properties);
       console.log('response in useEffect ', response.data.features[0].properties);
     }
 
@@ -111,7 +121,8 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
 
 
 
-  // console.log('TILE DATA ', tileData);
+   console.log('TILE DATA ', tileData);
+   console.log('TILE DATA type', typeof tileData);
   return (
     <div>
       <NavBar
@@ -121,11 +132,11 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
         darkState={darkState}
         handleThemeChange={handleThemeChange}
         />
-      <Box display="flex" flexDirection="row" justifyContent="center">
+      {/* <Box display="flex" flexDirection="row" justifyContent="center">
         <Button variant="outlined" color="inherit" href="/">
           Map View
         </Button>
-      </Box>
+      </Box> */}
       <div className={classes.root}>
         <GridList cellHeight={300} className={classes.gridList}>
           <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
@@ -133,7 +144,7 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
               Favorites
             </ListSubheader>
           </GridListTile>
-          {gotFavs &&
+          {/* {gotFavs &&
             tileData.map((tile, idx) => (
               <GridListTile key={tile.Image} idx={idx}>
                 <img src={tile.Image} alt={tile.Address} />
@@ -162,11 +173,13 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
                   }
                 />
               </GridListTile>
-            ))}
+            ))} */}
         </GridList>
       </div>
       <FavModal
-        prop={propDetail}
+        favForward={favForward}
+        favBackwards={favBackwards}
+        prop={tileData}
         open={favDetailsOpen}
         handleClose={handleClose}
       />
