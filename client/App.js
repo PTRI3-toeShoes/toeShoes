@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from './HomePage';
-import SignIn from './components/Signin';
-import SignUp from './components/SignUp';
+import SignIn from './Components/SignIn';
+import SignUp from './Components/SignUp';
 import MainContainer from './components/MainContainer';
 import Register from './components/Register';
 import Favorites from './components/Favorites';
 import NavBar from './components/NavBar';
 import Test from './components/Test';
-// import BrowserHistory from 'react-router/lib/BrowserHistory';
-// import { createBrowserHistory } from "history";
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// const history = createBrowserHistory();
-
-// import { Switch, Route, Redirect } from 'react-router-dom';
 import MapView from './MapView';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { BrowserRouter as Router, useHistory, Route, Switch } from 'react-router-dom';
+import { useHistory, Route, Switch } from 'react-router-dom';
+
 
 // import { UserContext } from './contexts/UserContext';
 
 
 const App = () => {
-  const history = useHistory()
+  // const history = useHistory()
+  // const changeUrl = (item) => {
+  //   history.push(item)
+  // }
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? 'dark' : 'light';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,7 +32,6 @@ const App = () => {
   }
 
   const handleThemeChange = () => {
-    // document.body.style = 'background: red;';
     setDarkState(!darkState);
     darkState ? (changeTheme("mapbox://styles/mapbox/streets-v11"), document.body.style = 'background: white;') : (changeTheme("mapbox://styles/mapbox/dark-v8"), document.body.style = 'background: #424242;')
    
@@ -55,7 +54,7 @@ const App = () => {
   }
 
   return (
- 
+    <Router>
     <ThemeProvider theme={darkTheme}>
       <div className="router">
         {console.log('DARKSTATE IN APP', darkState)}
@@ -64,7 +63,8 @@ const App = () => {
         {/* <NavBar handleThemeChange={handleThemeChange} darkState={darkState} /> */}
 
         <main>
-          <Switch>
+
+          {/* <Switch> */}
 
 {/* 
             <Route exact path="/signin" component={SignIn} />
@@ -87,15 +87,16 @@ const App = () => {
 
 
 
-              />
+              >
+                </HomePage>
             </Route>
 
     
-            <Route exact path="/signin" >
-              <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Route exact path="/signin" component={SignIn} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
+              {/* <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> */}
             </Route>
 
-            <Route exact path="/signup">
+            <Route exact path="/signup" component={SignUp}>
               <SignUp isLoggedIn={isLoggedIn} />
             </Route>
 
@@ -123,11 +124,11 @@ const App = () => {
               />
             </Route>
             <Route exact path="/test" component={Test} />
-            {/* </UserContext.Provider> */}
-          </Switch>
+          {/* </Switch> */}
         </main>
       </div>
     </ThemeProvider>
+    </Router>
  
   );
   
