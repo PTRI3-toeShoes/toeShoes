@@ -14,6 +14,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { useHistory, Route, Switch } from 'react-router-dom';
 
 
+// import { UserContext } from './contexts/UserContext';
+
+
 const App = () => {
   // const history = useHistory()
   // const changeUrl = (item) => {
@@ -40,12 +43,23 @@ const App = () => {
     },
   });
 
+ // setLightState(prevLightState => ({...prevLightState, ...newStat
+  const updateLoggedInState = (logBool) => {
+    console.log('In updateLoggedInState');
+    console.log('logBool: ', logBool);
+    console.log('isLoggedIn: ', isLoggedIn);
+    console.log('setIsLoggedIn: ', typeof(setIsLoggedIn));
+    setIsLoggedIn(logBool);
+    console.log('typeof setIsLoggedIn: ', typeof(setIstLoggedIn));
+  }
+
   return (
     <Router>
     <ThemeProvider theme={darkTheme}>
       <div className="router">
         {console.log('DARKSTATE IN APP', darkState)}
-
+        {console.log('isLoggedIn inside of app.js: ', isLoggedIn)}
+        {console.log('typeof updateLoggedInState inside of app.js: ', typeof(updateLoggedInState))}
         {/* <NavBar handleThemeChange={handleThemeChange} darkState={darkState} /> */}
 
         <main>

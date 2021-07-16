@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
+
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
@@ -11,13 +11,15 @@ const { getRoutes } = require('get-routes');
 //direct controller imports
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
-
+const dotenv = require('dotenv');
+dotenv.config();
 //route imports
 const signupRouter = require('./routes/signupRoute');
 const signinRouter = require('./routes/signinRoute');
 const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
+const googleOauthRouter = require('./routes/googleOauthRoute');
 
 
 app.use(cors());
@@ -31,6 +33,9 @@ app.use('/testRoute', (req, res) => {
 
 //signup route
 app.use('/register', signupRouter);
+
+//oauth signin route
+app.use('/googlelogin', googleOauthRouter);
 
 //signin route
 app.use('/signin', signinRouter);

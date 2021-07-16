@@ -1,8 +1,9 @@
 const { Pool } = require('pg');
 
+console.log('RGR process.env.SQL_STRING in dbModel: ', process.env.SQL_STRING);
 
 const pool = new Pool ({
-    connectionString: process.env.SQL_STRING
+    connectionString: "postgres://wropaeom:iiD5vZLE3pltW78jVbLG19DqubsoY7E8@batyr.db.elephantsql.com/wropaeom"
 });
 
 module.exports = {

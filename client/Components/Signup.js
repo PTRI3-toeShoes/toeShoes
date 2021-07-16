@@ -8,7 +8,7 @@ import GoogleIcon from './GoogleIcon';
 import api from '../axios/axios';
 import { useHistory } from 'react-router-dom'
 import LockIcon from '@material-ui/icons/Lock';
-
+import GoogleLoginButton from './GoogleLoginButton';
 
 function Copyright() {
   return (
@@ -174,7 +174,7 @@ export default function SignUp({isLoggedIn, setIsLoggedIn}) {
                 </Grid>
               </form>
 
-              <Button
+              {/* <Button
                 startIcon={<GoogleIcon />}
                 fullWidth
                 variant="contained"
@@ -183,7 +183,8 @@ export default function SignUp({isLoggedIn, setIsLoggedIn}) {
               >
                 {' '}
                 Sign Up With Google
-              </Button>
+              </Button> */}
+              <GoogleLoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
             </div>
             <Box mt={8}>
               <Copyright />
