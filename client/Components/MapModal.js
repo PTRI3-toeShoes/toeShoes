@@ -18,10 +18,6 @@ const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) =
       maxWidth: 800,
       height: '100vh',
     },
-    image: {
-      maxWidth: 400,
-      height: 'auto',
-    },
     card: {
       margin: 20,
       p: 20,
@@ -29,6 +25,12 @@ const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) =
     imgContainer: {
       justify: 'center',
     },
+    image: {
+      maxWidth: 400,
+      height: 'auto',
+    },
+
+
     detailField: {
       padding: theme.spacing(3),
     },
