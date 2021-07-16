@@ -4,6 +4,9 @@ const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
@@ -11,8 +14,7 @@ const { getRoutes } = require('get-routes');
 //direct controller imports
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
-const dotenv = require('dotenv');
-dotenv.config();
+
 //route imports
 const signupRouter = require('./routes/signupRoute');
 const signinRouter = require('./routes/signinRoute');
