@@ -49,7 +49,9 @@ const App = () => {
         {/* <NavBar handleThemeChange={handleThemeChange} darkState={darkState} /> */}
 
         <main>
+
           {/* <Switch> */}
+
 {/* 
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/register" component={Register} />
