@@ -54,7 +54,6 @@ favsController.getFavs = (req, res, next) => {
     db.query(queryString)
       .then((data) => {
         //console.log(user);
-        console.log("SAM in CONTROLLER ", data.rows)
         res.locals.favsArr = data.rows; //user.favorites;
       })
       .then(() => next())

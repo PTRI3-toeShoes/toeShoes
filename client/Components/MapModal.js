@@ -38,6 +38,7 @@ const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) =
   const classes = useStyles();
   const [clickedFav, setClickedFav] = useState(false);
   const favIcon = clickedFav ? <FavoriteIcon /> : <FavoriteBorderIcon />;
+  
   const handleAddFavs = (e) => {
     e.preventDefault();
     setFavoriteCount(favoriteCount+1);
