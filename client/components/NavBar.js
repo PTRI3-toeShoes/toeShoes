@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import {AppBar, Link, Toolbar, IconButton, Button, Typography, Badge, Menu, MenuItem} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -18,7 +10,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // import MoreIcon from '@material-ui/icons/MoreVert';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
-import {Link} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 // import red from '@material-ui/core/colors/red';
 
 
@@ -134,6 +126,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
   };
 
   const signInOut = isLoggedIn ? 'Sign Out' : 'Sign In';
+  // const signInOrSignOut = isLoggedIn ? '/signin' : 
   const handleSignInOut = () => {
     console.log('triggered');
     if (isLoggedIn) {
@@ -160,10 +153,10 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleSignInOut}>{signInOut}</MenuItem>
-      <MenuItem onClick={handleSignup}>Sign Up</MenuItem>
+      <MenuItem component = {RouterLink} to='/profile' onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem component = {RouterLink} to='/account' onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem component = {RouterLink} to='/signin' onClick={handleSignInOut}>{signInOut}</MenuItem>
+      <MenuItem component = {RouterLink} to='/signup' onClick={handleSignup}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -200,6 +193,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
+          
         >
           <AccountCircle />
         </IconButton>
@@ -230,7 +224,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
             <IconButton color="inherit" onClick={handleThemeChange}>
               <Brightness4Icon />
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton aria-label="show 17 new notifications" color="inherit" component={RouterLink} to='/favs'>
               <Badge badgeContent={favoriteCount} color="secondary">
                 <FavoriteIcon onClick={showFavs} />
               </Badge>
