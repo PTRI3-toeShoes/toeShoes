@@ -18,6 +18,7 @@ const signinRouter = require('./routes/signinRoute');
 const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
+const queryFavsRouter = require('./routes/queryFavsRouter');
 
 
 app.use(cors());
@@ -43,6 +44,8 @@ app.use('/addFav', addFavsRouter);
 
 //get favorites route
 app.use('/getFavs', getFavsRouter);
+
+app.use('/zillowFavQuery', queryFavsRouter);
 
 //check login route
 app.use('/checkLogin', /* sessionController.isLoggedIn,*/ (req, res) => {
