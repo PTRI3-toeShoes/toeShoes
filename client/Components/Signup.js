@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import {Avatar, Button, Card, CssBaseline, TextField, Link, Grid, Box, Checkbox, Typography, Divider, Container} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import HouseIcon from '@material-ui/icons/House';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import GoogleIcon from './GoogleIcon';
 import api from '../axios/axios';
 import { useHistory } from 'react-router-dom'
@@ -71,11 +60,14 @@ export default function SignUp({isLoggedIn, setIsLoggedIn}) {
 
   console.log('history ', history)
   //submit fxn to make http call to BE
+  const checkPasswords = (e) => {
+    if(passwords === confirm) handleSubmit(e)
+  }
   const handleSubmit = (e) => {
   
-    
+  
     e.preventDefault();
-    if(passwords === confirm){
+  
       api({
         method: 'post',
         url: '/signup',
@@ -86,11 +78,9 @@ export default function SignUp({isLoggedIn, setIsLoggedIn}) {
       }).then((res) => {
         console.log(res.data.isLoggedIn);
         setIsLoggedIn(res.data.isLoggedIn)
-        alert('Signed in!')
+        
         
       });
-    }
-    if(passwords !== confirm) alert(`Passwords don't match!`)
   };
 
   if(isLoggedIn) return <Redirect to="/"/>;
@@ -111,7 +101,7 @@ export default function SignUp({isLoggedIn, setIsLoggedIn}) {
               <Typography component="h1" variant="h5">
                 Sign Up
               </Typography>
-              <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              <form className={classes.form} noValidate onSubmit={checkPasswords}>
                 <TextField
                   variant="outlined"
                   margin="normal"
