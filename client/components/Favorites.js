@@ -57,11 +57,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   darkState, handleThemeChange})  => {
+
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
   const [propDetail, setPropDetail] = useState({});
   const [gotFavs, setGotFavs] = useState(false);
   const [favDetailsOpen, setFavDetailsOpen] = useState(false);
+
   //open/close handlers for add record modal
   const handleOpen = (e, idx) => {
     e.preventDefault();
@@ -76,26 +78,39 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   const handleClose = () => {
     setFavDetailsOpen(false);
   };
+
+
   //get request to retrieve favorites
 
   const getFavs = async () => {
-    await api({
-      method: 'get',
+
+    console.log('in getFavs in favorites')
+    const response = await api({
+      method: 'GET',
       url: '/getFavs',
     })
-      .then((res) => {
-        // console.log('RES IN GET FAVS', res);
-        console.log('RES FAV ARR', res.data.favsArr);
-        setTileData(res.data.favsArr);
-        setGotFavs(true);
-      })
-      .catch((err) => {
-        console.log('GET FAVS ERROR ', err.message);
-      });
+
+    if(!response) console.log('ERROR IN GETTING FAVS SENT TO FRONT END (favorites.js ln 93)');
+    
+    else return response.data;
+
   };
-  useEffect(() => {
-    getFavs();
+  useEffect(async() => {
+    const favsArr = await getFavs()
+    //favsArr is populated with zillow zpids. On successful getting of that array can I query for the first fav here?
+    if(favsArr){
+      const response = await api({
+        method: 'GET',
+        url: `/zillowFavQuery/${favsArr[0].zpid}`
+      })
+
+      console.log('response in useEffect ', response.data.features[0].properties);
+    }
+
   }, []);
+
+
+
   // console.log('TILE DATA ', tileData);
   return (
     <div>
