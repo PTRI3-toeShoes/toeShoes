@@ -29,7 +29,7 @@ export default function RanksContainer() {
         <div>
             <CssBaseline />
             <div>
-                <Container  maxwidth="md">
+                <Container  maxwidth="lg">
                     <Grid container spacing={4}>
                         <ImgMediaCard/>
                         <ImgMediaCard/>

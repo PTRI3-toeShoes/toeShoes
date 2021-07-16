@@ -11,7 +11,8 @@ import {
     Button,
     Typography,
     IconButton,
-    Divider
+    Divider,
+    Container
 } from "@material-ui/core";
 import './styles/propCardStyles.css'
 
@@ -27,7 +28,6 @@ const styles = muiBaseTheme => ({
   card: {
     maxWidth: 300,
     margin: "auto",
-    alignItems: "center",
     transition: "0.3s",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     "&:hover": {
@@ -59,28 +59,30 @@ function ImgMediaCard({ classes }) {
 
     return (
         <div className={ImgMediaCard}>
-        <Grid container spacing={4}>
-        <Card className={classes.card}>
-            <CardMedia
-                className={classes.media}
-                image={"https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"}
-            />
-            <CardContent className={classes.content}>
-                <Typography className={"MuiTypography--heading"} gutterBottom variant="h6">
-                    Sample Card (Action)
-                </Typography>
-            </CardContent>
-            <Divider className={classes.divider} light />
-            <CardActions disableSpacing>
-                <IconButton aria-label='Add to Favorites'>
-                    <FavoriteIcon/>
-                </IconButton>
-                <Button size="small" color="primary">
-                    See Details
-                </Button>
-            </CardActions>
-        </Card>
-        </Grid>
+        <Container maxwidth="lg">
+            <Grid container spacing={4}>
+                <Card className={classes.card}>
+                    <CardMedia
+                        className={classes.media}
+                        image={"https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"}
+                    />
+                    <CardContent className={classes.content}>
+                        <Typography className={"MuiTypography--heading"} gutterBottom variant="h6">
+                            Sample Card (Action)
+                        </Typography>
+                    </CardContent>
+                    <Divider className={classes.divider} light />
+                    <CardActions disableSpacing>
+                        <IconButton aria-label='Add to Favorites'>
+                            <FavoriteIcon/>
+                        </IconButton>
+                        <Button size="small" color="primary">
+                            See Details
+                        </Button>
+                    </CardActions>
+                </Card>
+            </Grid>
+        </Container>
         </div>
     );
 }

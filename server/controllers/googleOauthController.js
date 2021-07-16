@@ -2,7 +2,7 @@ const config = require('../../config.json');
 const googleOauthController = {};
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_KEY);
-
+const db = require('../models/dbModel');
 /*********************
  * Differentiate between a sign up and a sign in
 ************************** */
@@ -48,8 +48,29 @@ googleOauthController.googleLogin = async (req, res, next) => {
     res.locals.isLoggedIn = true;
     res.locals.email = email;
     console.log('res.locals inside of googleOauthController: ', res.locals);
-    // return res.status(200).send({ isLoggedIn: true });
-    return next();
+
+    //query db to see if email exists
+    const queryString = `SELECT * FROM users WHERE email = $1`;
+    db.query(queryString, [res.locals.email])
+        .then((data) => {
+            //yes user exists-> next
+            if(data.rows[0].email){
+                console.log('data.rows[0].email', data.rows[0].email);
+                const userEmail = data.rows[0].email;
+                console.log('res.locals.email: ', res.locals.email);
+                // res.locals.email = userEmail;
+                return next();
+            }else{
+                //no-> create new user w/ email and dummy pw; next()
+                const phonypw = '203falk2924';
+                const queryString = `INSERT INTO users (email, password) VALUES ($1, $2)`;
+                db.query(queryString, [data.rows[0].email, phonypw])
+                return next();
+            }
+        })
+        .catch(error => {
+            console.log('Error in googleOauthController: ', error);
+        });
     
     } catch(error) {
         res.status(500).json({ message: 'Error in googleOauthController' });
