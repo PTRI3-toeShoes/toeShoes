@@ -38,14 +38,12 @@ const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) =
   const classes = useStyles();
   const [clickedFav, setClickedFav] = useState(false);
   const favIcon = clickedFav ? <FavoriteIcon /> : <FavoriteBorderIcon />;
-  
-  const handleAddFavs = (e) => {
-    e.preventDefault();
+
+  //favorite is not defined!
+  const addFavs = () =>{
+    setClickedFav(true);
     setFavoriteCount(favoriteCount+1);
-    setClickedFav(!clickedFav);
-    const favorite = property;
-    console.log('FAVORITE', favorite);
-    api({
+      api({
       method: 'post',
       url: '/addFav',
       data: {
@@ -56,6 +54,46 @@ const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) =
         console.log('ADD FAV RESPONSE ', res.data);
       })
       .catch((err) => console.log('ADD FAV ERROR', err));
+  }
+
+  const deleteFavs = (e) =>{
+    setClickedFav(false);
+    setFavoriteCount(favoriteCount-1);
+    api({
+      method: 'delete',
+      url: '/deleteFav',
+      data: {
+        zpid: e,
+      },
+    })
+      .then((res) => {
+        console.log('DELETE FAV RESPONSE ', res.data);
+      })
+      .catch((err) => console.log('DELETE FAV ERROR', err));
+  }
+  
+  const handleAddFavs = (e) => {
+    e.preventDefault();
+    if(!clickedFav){ 
+     addFavs()
+    }else{
+     deleteFavs()
+    }
+    // setFavoriteCount(favoriteCount+1);
+    // setClickedFav(!clickedFav);
+    const favorite = property;
+    console.log('FAVORITE', favorite);
+    // api({
+    //   method: 'post',
+    //   url: '/addFav',
+    //   data: {
+    //     favorite: favorite,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log('ADD FAV RESPONSE ', res.data);
+    //   })
+    //   .catch((err) => console.log('ADD FAV ERROR', err));
   };
   return (
     <Dialog

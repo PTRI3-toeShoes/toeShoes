@@ -12,6 +12,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import MapView from './MapView';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { useHistory, Route, Switch } from 'react-router-dom';
+ 
 
 
 // import { UserContext } from './contexts/UserContext';
@@ -93,7 +94,11 @@ const App = () => {
 
     
             <Route exact path="/signin" component={SignIn}>
+<<<<<<< HEAD
               {<SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
+=======
+              <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+>>>>>>> dev
             </Route>
 
             <Route exact path="/signup" component={SignUp}>
@@ -105,7 +110,7 @@ const App = () => {
             <Route exact path="/register">
               <Register isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             </Route>
-             <Route exact path="/favs">
+             <Route exact path="/favs" component={Favorites}>
               {/* <NavBar
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
