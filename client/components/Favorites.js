@@ -60,9 +60,12 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
   const [propDetail, setPropDetail] = useState({});
-  const [favsArr, setFavsArr] = useState([])
+  const [favsArr, setFavsArr] = useState('')
   const [gotFavs, setGotFavs] = useState(false);
   const [favDetailsOpen, setFavDetailsOpen] = useState(false);
+  const [currInd, setCurrInd] = useState(0);
+  const [forwardsAvailable, setForwardsAvailable] = useState(true);
+  const [backwardsAvailable, setBackwardsAvailable] = useState(false);
 
   //open/close handlers for add record modal
   const handleOpen = (e, idx) => {
@@ -79,12 +82,36 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
     setFavDetailsOpen(false);
   };
 
-  const favForward= () =>{
-    setTileData(favsArr[1]);
-
+  const noForwards = () => {
+    setForwardsAvailable(false);
+    console.log('noForwards activated')
   }
-  const favBackwards = () =>{
-    
+  const noBackwards = () => {
+    setBackwardsAvailable(false);
+  }
+
+  const favForward= async () =>{
+    // setForwardsAvailable(true);
+    // setBackwardsAvailable(false);
+    setCurrInd(currInd+1);
+    console.log("Current spot in favsArr in favForward: ",currInd)
+    const response = await api({
+      method: 'GET',
+      url: `/zillowFavQuery/${favsArr[currInd+1].zpid}`
+    })
+    setTileData(response.data.features[0].properties);
+  }
+  const favBackwards = async() =>{
+     setForwardsAvailable(true);
+    // setBackwardsAvailable(true);
+    setCurrInd(currInd-1)
+    console.log("Current spot in favsArr in favBackwards: ",currInd)
+  //   const s= await function(){setCurrInd(currInd-1)};
+    const response = await api({
+    method: 'GET',
+    url: `/zillowFavQuery/${favsArr[currInd-1].zpid}`
+  })
+  setTileData(response.data.features[0].properties);
   }
 
 
@@ -126,6 +153,7 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   return (
     <div>
       <NavBar
+
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         setDarkState={setDarkState}
@@ -177,11 +205,20 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
         </GridList>
       </div>
       <FavModal
+      noForwards={noForwards}
+      noBackwards={noBackwards}
+      forwardsAvailable={forwardsAvailable}
+      setForwardsAvailable={setForwardsAvailable}
+      backwardsAvailable={backwardsAvailable}
+      backwardsAvailable={backwardsAvailable}
         favForward={favForward}
         favBackwards={favBackwards}
         prop={tileData}
         open={favDetailsOpen}
         handleClose={handleClose}
+        currInd={currInd}
+        favsArr={favsArr}
+        setFavsArr={setFavsArr}
       />
     </div>
   );

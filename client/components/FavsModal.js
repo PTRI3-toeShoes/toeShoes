@@ -5,7 +5,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-const FavModal = ({ open, handleClose, prop, favForward, favBackwards }) => {
+const FavModal = ({ open, handleClose, prop, favForward, favBackwards, currInd, favsArr, setFavsArr, forwardsAvailable, setForwardsAvailable, backwardsAvailable, setBackwardsAvailable,noForwards, noBackwards}) => {
   {console.log('PROP', prop)}
  
   const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,8 @@ const FavModal = ({ open, handleClose, prop, favForward, favBackwards }) => {
   
     },
     card: {
-      margin: 20,
+      // alignItems:center
+      margin: 'auto',
       padding: 20,
     },
     imgContainer: {
@@ -45,26 +46,60 @@ const FavModal = ({ open, handleClose, prop, favForward, favBackwards }) => {
   const classes = useStyles();
 
   const deleteFromDB = (e) =>{
-    api({
-      method: 'delete',
-      url: '/deleteFav',
-      data: {
-        ZPID: e,
-      },
-    })
-      .then((res) => {
-        console.log('DELETE FAV RESPONSE ', res.data);
-      })
-      .catch((err) => console.log('DELETE FAV ERROR', err));
+    console.log('To be deleted: ', e)
+    let arr =[]
+    
+    for(let i =0; i < favsArr.length; i++){
+      
+      if(favsArr[i].zpid !== e){arr.push(favsArr[i])
+      
+      
+    }}
+   
+    setFavsArr(arr);
+    //if(currInd > 0) favForward();
+     if(forwardsAvailable){
+       favForward() 
+       return;
+      }else {
+        favBackwards();
+        return;
+      }
+    // console.log('this is e', e)
+    // const tempArr = favsArr.slice()  
+    // const index = tempArr.indexOf(e);
+    // if (index > -1) {
+    //   tempArr.splice(index, 1);
+    // }
+    // setFavsArr(tempArr);
+    console.log("favarr", favsArr)
+
+    console.log(arr)
+    
+    // api({
+    //   method: 'delete',
+    //   url: '/deleteFav',
+    //   data: {
+    //     ZPID: e,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log('DELETE FAV RESPONSE ', res.data);
+    //   })
+    //   .catch((err) => console.log('DELETE FAV ERROR', err));
   }
 
-
+  
   return (
+    <div>
     <Grid container justify='center'>
-    <Grid item fontSize="large" component={ArrowBackIosIcon} lg={1} style={{textAlign:"center"}} className={classes.Arrows}/>
+    {currInd <=0 &&
+    <Grid item fontSize="large" style={{color:"white"}} onClick={noBackwards()} component={ArrowBackIosIcon} lg={1} className={classes.Arrows}/>}
+    {currInd >0 &&
+    <Grid item fontSize="large" onClick={favBackwards} component={ArrowBackIosIcon} lg={1} className={classes.Arrows}/>}
   
     <Grid item
-    style={{textAlign:"center"}}
+    
     component={Paper}
     lg={2}
     open={open}
@@ -140,8 +175,13 @@ const FavModal = ({ open, handleClose, prop, favForward, favBackwards }) => {
       </Grid>
     </Box>
   </Grid>
-  <Grid item fontSize="large" component={ArrowForwardIosIcon} onClick={favForward} lg={1} style={{textAlign:"center"}} className={classes.Arrows}/>
+  {currInd < favsArr.length-1 &&
+  <Grid item fontSize="large" component={ArrowForwardIosIcon} onClick={favForward} lg={1} className={classes.Arrows} />}
+  {currInd === favsArr.length-1 &&
+  <Grid item fontSize="large" style={{color:"white"}} onClick={noForwards()} component={ArrowForwardIosIcon} lg={1} className={classes.Arrows}/>}
+  
   </Grid>
+  </div>
    
   )
 
