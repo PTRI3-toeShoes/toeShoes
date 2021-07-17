@@ -215,7 +215,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
             <MenuIcon />
           </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap >
-            Rental Evaluator
+            Rentaly
           </Typography>
 
           <div className={classes.grow} />
