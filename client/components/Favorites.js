@@ -64,6 +64,8 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   const [gotFavs, setGotFavs] = useState(false);
   const [favDetailsOpen, setFavDetailsOpen] = useState(false);
 
+  const renderArr = [];
+
   //open/close handlers for add record modal
   const handleOpen = (e, idx) => {
     e.preventDefault();
@@ -105,6 +107,8 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
       })
 
       console.log('response in useEffect ', response.data.features[0].properties);
+      
+      renderArr.push(<FavModal props={response.data.features[0].properties}/>)
     }
 
   }, []);
@@ -165,6 +169,7 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
             ))}
         </GridList>
       </div>
+      {renderArr}
       <FavModal
         prop={propDetail}
         open={favDetailsOpen}

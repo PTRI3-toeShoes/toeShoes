@@ -48,10 +48,10 @@ favsController.getFavs = (req, res, next) => {
   } else {
     //let favsArr;
 
-    const queryString = `SELECT zpid FROM favorites WHERE user_id = 1`;
+    const queryString = `SELECT zpid FROM favorites WHERE user_id = $1`;
 
 
-    db.query(queryString)
+    db.query(queryString, [req.cookies.ssid])
       .then((data) => {
         //console.log(user);
         res.locals.favsArr = data.rows; //user.favorites;
@@ -59,6 +59,18 @@ favsController.getFavs = (req, res, next) => {
       .then(() => next())
       .catch((err) => console.log('favscontroller.getFavs error, ', err));
   }
+};
+
+favsController.deleteFav =  (req, res, next) =>{
+    console.log('zpid to delete on backend', req.body.zpid);
+
+    const queryString = `DELETE FROM favorites WHERE (user_id = $1 AND zpid = $2);`
+
+    db.query(queryString, [req.cookies.ssid, req.body.zpid])
+      .then(() => next())
+      .catch ((err) => console.log('deleteFav error ', err))
+
+
 };
 
 module.exports = favsController;
