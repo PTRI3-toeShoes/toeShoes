@@ -123,7 +123,9 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
     const response = await api({
       method: 'GET',
       url: '/getFavs',
+      
     })
+    console.log('Favs are here: ')
 
     if(!response) console.log('ERROR IN GETTING FAVS SENT TO FRONT END (favorites.js ln 93)');
     
@@ -131,8 +133,8 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
 
   };
   useEffect(async() => {
-    const favsArr = [{'zpid':20153061},{'zpid':39777013},{'zpid':39774879}]
-    // const favsArr = await getFavs()
+    // const favsArr = [{'zpid':20153061},{'zpid':39777013},{'zpid':39774879}]
+    const favsArr = await getFavs()
     //favsArr is populated with zillow zpids. On successful getting of that array can I query for the first fav here?
     if(favsArr){
       const response = await api({
