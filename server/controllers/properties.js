@@ -16,7 +16,7 @@ const calcMortgage = (price, int, down = 0.2, years = 30) => {
 };
 
 middlewares.getPropertiesForSale = async (req, res, next) => {
-  console.log(req.query);
+  //console.log(req.query);
   const url = new URL(
     'https://zillow-com1.p.rapidapi.com/propertyExtendedSearch'
   );
@@ -42,11 +42,11 @@ middlewares.getPropertiesForSale = async (req, res, next) => {
   //   bedsMax: '2'
   // };
   url.search = new URLSearchParams(params).toString();
-  console.log(url);
+  //console.log(url);
   const result = await fetch(url, { method: 'GET', headers: headers }).then(
     (res) => res.json()
   );
-  console.log(result);
+  // console.log(result);
 
   if ('zpid' in result) {
     res.locals.zpid = result.zpid;
@@ -81,7 +81,7 @@ middlewares.getPropertiesForSale = async (req, res, next) => {
                 ZPID: zpid,
               },
               geometry: {
-                coordinates: [longitude, latitude],
+                coordinates: [longitude,latitude],
                 type: 'Point',
               },
             })
@@ -100,6 +100,7 @@ middlewares.getPropertiesForSale = async (req, res, next) => {
 };
 
 middlewares.getTargetForSale = async (req, res, next) => {
+  console.log('in target for sale');
   const url = new URL('https://zillow-com1.p.rapidapi.com/property');
   const params = {
     zpid: req.params.zpid,
@@ -185,7 +186,7 @@ middlewares.getPropertiesForRental = async (req, res, next) => {
   //   'bedsMax': '2'
   // };
   url.search = new URLSearchParams(req.params).toString();
-  console.log(url);
+  //console.log(url);
   const result = await fetch(url, { method: 'GET', headers: headers }).then(
     (res) => res.json()
   );

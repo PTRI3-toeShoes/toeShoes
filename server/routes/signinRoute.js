@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('../controllers/userController');
 const sessionController = require('../controllers/sessionController');
 const cookieController = require('../controllers/cookieController');
+const googleOauthController = require('../controllers/googleOauthController');
 const router = express.Router();
 
 /*
@@ -17,7 +18,6 @@ START SESSION - stores ssid cookie in DB, then next()
 
 CALLBACK - sends 209 and obj {isLoggedIn: True}
 */
-
 router.post(
   '/',
   [

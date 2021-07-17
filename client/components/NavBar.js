@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import {AppBar, Link, Toolbar, IconButton, Button, Typography, Badge, Menu, MenuItem} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import Brightness2Icon from '@material-ui/icons/Brightness2';
+// import MoreIcon from '@material-ui/icons/MoreVert';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import {Link as RouterLink} from 'react-router-dom';
+// import red from '@material-ui/core/colors/red';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -28,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: 'none',
+    // display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
+      size: '30em',
+      // display: 'block',
     },
   },
   search: {
@@ -70,12 +65,12 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
+  // sectionDesktop: {
+  //   display: 'none',
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'flex',
+  //   },
+  // },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
@@ -85,16 +80,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedIn, setIsLoggedIn, handleThemeChange}) {
+export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedIn, setIsLoggedIn, handleThemeChange, favoriteCount}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [goToSignOut, setGoToSignOut] = useState(false);
   const [goToSignIn, setGoToSignIn] = useState(false);
   const [favView, setFavView] = useState(false);
+  const [goToSignup, setGoToSignup] = useState(false);
+  // const [favoriteCount, setFavoriteCount] = useState(1);
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
   // const handleThemeChange = () => {
   //   setDarkState(!darkState);
   // };
@@ -120,7 +119,14 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
     setFavView(true);
   };
 
+  const handleSignup = () => {
+    
+      setGoToSignup(true);
+  
+  };
+
   const signInOut = isLoggedIn ? 'Sign Out' : 'Sign In';
+  // const signInOrSignOut = isLoggedIn ? '/signin' : 
   const handleSignInOut = () => {
     console.log('triggered');
     if (isLoggedIn) {
@@ -134,6 +140,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
   if (goToSignOut) return <Redirect to="/signin" />;
   if (goToSignIn) return <Redirect to="/signin" />;
   if (favView) return <Redirect to="/favs" />;
+  if (goToSignup) return <Redirect to="/signup" />;
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -146,9 +153,10 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleSignInOut}>{signInOut}</MenuItem>
+      <MenuItem component = {RouterLink} to='/profile' onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem component = {RouterLink} to='/account' onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem component = {RouterLink} to='/signin' onClick={handleSignInOut}>{signInOut}</MenuItem>
+      <MenuItem component = {RouterLink} to='/signup' onClick={handleSignup}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -185,6 +193,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
+          
         >
           <AccountCircle />
         </IconButton>
@@ -197,15 +206,15 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          </IconButton> */}
+          <Typography className={classes.title} variant="h6" noWrap >
             Rental Evaluator
           </Typography>
 
@@ -213,10 +222,10 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
           <div className={classes.sectionDesktop}>
             <Button onclick={handleThemeChange} />
             <IconButton color="inherit" onClick={handleThemeChange}>
-              <Brightness7Icon />
+              <Brightness4Icon />
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <IconButton aria-label="show 17 new notifications" color="inherit" component={RouterLink} to='/favs'>
+              <Badge badgeContent={favoriteCount} color="secondary">
                 <FavoriteIcon onClick={showFavs} />
               </Badge>
             </IconButton>
@@ -239,7 +248,7 @@ export default function PrimarySearchAppBar({ setDarkState, darkState, isLoggedI
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              {/* <MoreIcon /> */}
             </IconButton>
           </div>
         </Toolbar>

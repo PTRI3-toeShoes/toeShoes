@@ -1,33 +1,33 @@
 // https://mariestarck.com/how-to-display-a-mapbox-map-and-geocoder-mapbox-react-tutorial-part-1/
 
 import React, { useCallback, useRef, useState, useEffect } from 'react';
-import ReactMapGL, {
-  NavigationControl,
-} from 'react-map-gl';
+import ReactMapGL, { NavigationControl } from 'react-map-gl';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import MarkersList from './MarkersList';
 import SearchBar from './Components/SearchBar';
+import api from './axios/axios';
 
-const mapboxApiKey = 'pk.eyJ1IjoiYXJhbWF5IiwiYSI6ImNrcWI2Z3JjOTAxazQydnBlbHIyNWprbXAifQ.HNWa9dA4WXSefOVnqhIVZA';
+const mapboxApiKey =
+  'pk.eyJ1IjoiYXJhbWF5IiwiYSI6ImNrcWI2Z3JjOTAxazQydnBlbHIyNWprbXAifQ.HNWa9dA4WXSefOVnqhIVZA';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+  // paper: {
+  //   padding: theme.spacing(2),
+  //   textAlign: 'center',
+  //   color: theme.palette.text.secondary,
+  // },
 }));
 
-const MapView = () => {
+const MapView = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   // set Markers state
   // 190 E 72nd St APT 11B, New York, NY 10021
   /** Marker data should look like this
@@ -62,40 +62,51 @@ const MapView = () => {
     }
   }
    */
-  const [status, setStatus] = useState(null)
+  const [status, setStatus] = useState(null);
 
   const [markers, setMarkers] = useState({});
 
-  console.log('markers data ', markers)
+  console.log('markers data ', markers);
 
   useEffect( () => {
-    const defaultLocation = 'Mountain View, CA'
+    const defaultLocation = 'Los Angeles, CA'
     const fetchMarkers = async () => {
       // update API call status
-      setStatus('loading')
+      setStatus('loading');
       try {
         const res = await fetch(`/api/properties?location=${defaultLocation}`, {
           method: 'POST',
-
           headers: {
-            'Content-type': 'application/json'
-          }
-        })
+            'Content-type': 'application/json',
+          },
+        });
 
-        const results = await res.json()
-        console.log('results ', results)
+        const results = await res.json();
+        console.log('results ', results);
         // update Markers state
-        setMarkers(results)
+        setMarkers(results);
         // update API call status
         setStatus('done')
+
+        // const res = await api({
+        //   method: 'post',
+        //   url: `/properties?location=${defaultLocation}`
+        // }).then((res) => {
+        //   console.log('Res from axios call in MapView: ', res);
+        // });
+        // const results = await res.json();
+        // // update Markers state
+        // setMarkers(results)
+        // // update API call status
+        // setStatus('done')
       }catch(err) {
         console.error(`fetchMarkers call failed ${err}`)
         // update API call status
-        setStatus('error')
+        setStatus('error');
       }
-    }
-    fetchMarkers()
-  },[])
+    };
+    fetchMarkers();
+  }, []);
 
   const classes = useStyles('');
 
@@ -116,8 +127,10 @@ const MapView = () => {
 
   const [viewport, setViewport] = useState({
     // default location - Mountain View, CA
-    longitude: -122.08200104737605,
-    latitude: 37.38560001105436,
+    // longitude: -122.08200104737605,
+    // latitude: 37.38560001105436,
+    longitude: -118.243683,
+    latitude: 34.052235,
     zoom: 12,
     bearing: 0,
     pitch: 0,
@@ -157,14 +170,17 @@ const MapView = () => {
           <ReactMapGL
             ref={mapRef}
             mapboxApiAccessToken={mapboxApiKey}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
+            mapStyle={mapTheme}
+            // mapStyle="mapbox://styles/mapbox/streets-v11"
             {...viewport}
             {...mapStyle}
             onViewportChange={handleViewportChange}
           >
             <MarkersList 
               props={markers}
-              status={status}              
+              status={status}   
+              setFavoriteCount = {setFavoriteCount} 
+              favoriteCount = {favoriteCount}          
             />
 
             <div style={navStyle}>
@@ -182,11 +198,11 @@ const MapView = () => {
         </Grid>
       </div>
       <div>
-        <Paper className={classes.paper}>
+        {/* <Paper className={classes.paper}>
           xs=12 lat: {viewport.latitude} <br />
           lng: {viewport.longitude} <br />
           zoom: {viewport.zoom}
-        </Paper>
+        </Paper> */}
       </div>
     </Container>
   );

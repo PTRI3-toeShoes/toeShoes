@@ -2,9 +2,11 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
@@ -19,17 +21,11 @@ const signinRouter = require('./routes/signinRoute');
 const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
+const queryFavsRouter = require('./routes/queryFavsRouter');
+const deleteFavRoute = require('./routes/deleteFavRoute');
+const googleOauthRouter = require('./routes/googleOauthRoute');
 
-//db connection
-//note - db connection issues?  check for console logs in terminal
-mongoose
-  .connect(
-    'mongodb+srv://admin:adam123@cluster0.tqcgi.mongodb.net/scratch_project?retryWrites=true&w=majority'
-  )
-  .then(
-    console.log('Connected to DB: ENV Test String: ', process.env.TEST_STRING)
-  )
-  .catch((err) => console.log('Mongo DB Connection Error:', err));
+
 
 app.use(cors());
 app.use(express.json());
@@ -41,7 +37,10 @@ app.use('/testRoute', (req, res) => {
 });
 
 //signup route
-app.use('/register', signupRouter);
+app.use('/signup', signupRouter);
+
+//oauth signin route
+app.use('/googlelogin', googleOauthRouter);
 
 //signin route
 app.use('/signin', signinRouter);
@@ -55,15 +54,19 @@ app.use('/addFav', addFavsRouter);
 //get favorites route
 app.use('/getFavs', getFavsRouter);
 
+app.use('/deleteFav', deleteFavRoute);
+
+app.use('/zillowFavQuery', queryFavsRouter);
+
 //check login route
-app.use('/checkLogin', sessionController.isLoggedIn, (req, res) => {
+app.use('/checkLogin', /* sessionController.isLoggedIn,*/ (req, res) => {
   return res.status(299).send('user is logged in');
 });
 
-//serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
-app.get('/', cookieController.setCookie, (req, res) => {
-  return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
-});
+// //serve index.html - NOTE - THIS ROUTE NEVER ACTUALLY HITS (react router serves up the page??)
+// app.get('/', cookieController.setCookie, (req, res) => {
+//   return res.status(201).sendFile(path.join(__dirname, '.././index.html'));
+// });
 
 // print all routes
 // const routes = getRoutes(app);
@@ -78,7 +81,7 @@ app.use((err, req, res, next) => {
     message: { err: 'An unknown error occurred.' },
   };
   Object.assign(defaultErr, err);
-  console.log(defaultErr.log);
+  //console.log(defaultErr.log);
   return res.status(defaultErr.status).json(defaultErr.message);
 });
 

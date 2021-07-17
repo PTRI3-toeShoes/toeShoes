@@ -8,8 +8,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Typography, Grid, Card, Divider, Box } from '@material-ui/core';
 import api from '../axios/axios';
 
-const MapModal = ({ open, handleClose, prop }) => {
-  console.log(prop)
+const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) => {
+  console.log("prop in map model",prop)
   //   const property = propDetail.targetForSale.features[0];
   const property = prop.properties;
 
@@ -18,10 +18,6 @@ const MapModal = ({ open, handleClose, prop }) => {
       maxWidth: 800,
       height: '100vh',
     },
-    image: {
-      maxWidth: 400,
-      height: 'auto',
-    },
     card: {
       margin: 20,
       p: 20,
@@ -29,6 +25,12 @@ const MapModal = ({ open, handleClose, prop }) => {
     imgContainer: {
       justify: 'center',
     },
+    image: {
+      maxWidth: 400,
+      height: 'auto',
+    },
+
+
     detailField: {
       padding: theme.spacing(3),
     },
@@ -36,22 +38,62 @@ const MapModal = ({ open, handleClose, prop }) => {
   const classes = useStyles();
   const [clickedFav, setClickedFav] = useState(false);
   const favIcon = clickedFav ? <FavoriteIcon /> : <FavoriteBorderIcon />;
-  const handleAddFavs = (e) => {
-    e.preventDefault();
-    setClickedFav(!clickedFav);
-    const favorite = property;
-    console.log('FAVORITE', favorite);
-    api({
+
+  //favorite is not defined!
+  const addFavs = () =>{
+    setClickedFav(true);
+    setFavoriteCount(favoriteCount+1);
+      api({
       method: 'post',
       url: '/addFav',
       data: {
-        favorite: favorite,
+        favorite: property,
       },
     })
       .then((res) => {
         console.log('ADD FAV RESPONSE ', res.data);
       })
       .catch((err) => console.log('ADD FAV ERROR', err));
+  }
+
+  const deleteFavs = (e) =>{
+    setClickedFav(false);
+    setFavoriteCount(favoriteCount-1);
+    api({
+      method: 'delete',
+      url: '/deleteFav',
+      data: {
+        zpid: e,
+      },
+    })
+      .then((res) => {
+        console.log('DELETE FAV RESPONSE ', res.data);
+      })
+      .catch((err) => console.log('DELETE FAV ERROR', err));
+  }
+  
+  const handleAddFavs = (e) => {
+    e.preventDefault();
+    if(!clickedFav){ 
+     addFavs()
+    }else{
+     deleteFavs()
+    }
+    // setFavoriteCount(favoriteCount+1);
+    // setClickedFav(!clickedFav);
+    const favorite = property;
+    console.log('FAVORITE', favorite);
+    // api({
+    //   method: 'post',
+    //   url: '/addFav',
+    //   data: {
+    //     favorite: favorite,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log('ADD FAV RESPONSE ', res.data);
+    //   })
+    //   .catch((err) => console.log('ADD FAV ERROR', err));
   };
   return (
     <Dialog

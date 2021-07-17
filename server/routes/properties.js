@@ -62,8 +62,8 @@ router.post(
     middlewares.getPropertiesForRental(req, res, next);
   },
   (req, res) => {
-    console.log('Response of target endpoint:')
-    console.log(JSON.stringify(res.locals, null, 2));
+    //console.log('Response of target endpoint:')
+    //console.log(JSON.stringify(res.locals, null, 2));
     return res.status(200).json(res.locals);
   }
 );
