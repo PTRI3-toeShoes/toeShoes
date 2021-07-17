@@ -21,7 +21,10 @@ userController.createUser = (req, res, next) => {
 
         db.query(queryString, [req.body.emails, req.body.emails, hash])
           .then(result => {
-            if (result) return next();
+            if (result) {
+              res.locals.userEmail = req.body.emails;
+              return next();
+            }
           })
           .catch(e => {
             console.log('CreateUser Error: ', e);
