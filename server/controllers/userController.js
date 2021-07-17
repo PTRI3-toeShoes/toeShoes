@@ -8,18 +8,18 @@ const salt_rounds = 10;
 //fail - sends obj {success: false}, return out
 
 userController.createUser = (req, res, next) => {
-  console.log('KEF IN createUser middleware');
+  console.log('KEF IN createUser middleware: ', req.body.emails, req.body.passwords);
   //check request for correct data
-  if (req.body.email && req.body.password) {
+  if (req.body.emails && req.body.passwords) {
     //perform encryption
-    bcrypt.hash(req.body.password, salt_rounds, (error, hash) => {
+    bcrypt.hash(req.body.passwords, salt_rounds, (error, hash) => {
       //error check
       if (error) console.log('bcrypt error');
       //create user w encrypted pw
       else {
         const queryString = `INSERT INTO users (username, email, password) VALUES ($1, $2, $3)`;
 
-        db.query(queryString, [req.body.name, req.body.name, hash])
+        db.query(queryString, [req.body.emails, req.body.emails, hash])
           .then(result => {
             if (result) return next();
           })
@@ -70,19 +70,21 @@ userController.verifyLogin = async (req, res, next) => {
     console.log('NO SUCH USER');
     return res.send({ message: 'user not found' });
   } else {
-   // bcrypt.compare(req.body.password, results.rows[0].password, (error, match) => {
+   // console.log("vu pw: ", results.rows[0].password);
+   bcrypt.compare(req.body.password, results.rows[0].password, (error, match) => {
       // login fail
-      //if (error) res.status(500).json(error);
-      //login success
-     // else 
-      if (req.body.password === results.rows[0].password) {//(match) {
-        console.log('SAM IS A NUDGE');
+      if (error) res.status(500).json(error);
+      // login success
+     else 
+      if (match) {
+        //console.log('SAM IS A NUDGE');
+        res.locals.userEmail = req.body.email;
         return next();
       }
       //login fail (incorrect pw)
       else return res.send({ message: 'incorrect PW' });
       //what happens here???
-  //  });
+   });
   }
 } catch (e) {
   console.log('VerifyUser Error: ', e);

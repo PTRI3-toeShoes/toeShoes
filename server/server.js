@@ -36,7 +36,7 @@ app.use('/testRoute', (req, res) => {
 });
 
 //signup route
-app.use('/register', signupRouter);
+app.use('/signup', signupRouter);
 
 //oauth signin route
 app.use('/googlelogin', googleOauthRouter);
