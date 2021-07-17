@@ -98,7 +98,7 @@ const App = () => {
             </Route>
 
             <Route exact path="/signup" component={SignUp}>
-              <SignUp isLoggedIn={isLoggedIn} />
+              <SignUp isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
             </Route>
 
             
