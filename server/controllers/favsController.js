@@ -11,14 +11,14 @@ favsController.addFavs = (req, res, next) => {
   //     .send('favsController.addFavs error: nothing on body');
   // } else {
   // console.log('INSIDE ELSE');
-  console.log('SAM in addFavs' , process.env.GOOGLE_CLIENT_KEY);
+  console.log('SAM in addFavs' , req.body.favorite.ZPID);
 
   console.log('SSID ', req.cookies.ssid);
   //find the user
   // User.findById(req.cookies)
 
   const queryString = `INSERT INTO favorites (zpid, user_id) VALUES ($1, $2)`;
-  db.query(queryString, [req.body.favorite.zpid, req.cookies.ssid])
+  db.query(queryString, [req.body.favorite.ZPID, req.cookies.ssid])
   // MapModal.js on front end has console log on line 43 that logs req.body.favorite
 
   // User.findById(req.cookies.ssid)

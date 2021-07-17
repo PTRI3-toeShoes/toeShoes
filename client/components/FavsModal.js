@@ -33,7 +33,7 @@ const FavModal = ({ open, handleClose, prop, favForward, favBackwards, currInd, 
       justify: 'center',
     },
     image: {
-      maxWidth: 400,
+      width: 600,
       height: 'auto',
     },
 
@@ -101,7 +101,7 @@ const FavModal = ({ open, handleClose, prop, favForward, favBackwards, currInd, 
     <Grid item
     
     component={Paper}
-    lg={2}
+    lg={4}
     open={open}
     onClose={handleClose}
     className={classes.container}

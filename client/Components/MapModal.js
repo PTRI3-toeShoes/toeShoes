@@ -41,13 +41,14 @@ const MapModal = ({ open, handleClose, prop, favoriteCount, setFavoriteCount}) =
 
   //favorite is not defined!
   const addFavs = () =>{
+    console.log('SAM prop ', prop);
     setClickedFav(true);
     setFavoriteCount(favoriteCount+1);
       api({
       method: 'post',
       url: '/addFav',
       data: {
-        favorite: favorite,
+        favorite: property,
       },
     })
       .then((res) => {
