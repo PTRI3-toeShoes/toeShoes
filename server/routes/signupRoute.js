@@ -5,14 +5,6 @@ const sessionController = require('../controllers/sessionController');
 const cookieController = require('../controllers/cookieController');
 //note - signup is all lowercase
 
-/*
-FLOW:
-
-createUser - creates user in DB
-  if success - hits callback and sends 209 & res.data.success = true
-  if fail - means there is a duplicate - sends res.data.success = false
-
-*/
 router.post(
   '/',
   [

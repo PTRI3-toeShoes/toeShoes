@@ -5,19 +5,7 @@ const cookieController = require('../controllers/cookieController');
 const googleOauthController = require('../controllers/googleOauthController');
 const router = express.Router();
 
-/*
-FLOW:
 
-VERIFY LOGIN - check un/pw against database
-  if good - next()
-  if bad - returns 403 and 'bad login' text
-
-SET SSID COOKIE - sets ssid cookie, then next()
-
-START SESSION - stores ssid cookie in DB, then next()
-
-CALLBACK - sends 209 and obj {isLoggedIn: True}
-*/
 router.post(
   '/',
   [
@@ -27,7 +15,6 @@ router.post(
   ],
   (req, res) => {
     return res.status(209).send({ isLoggedIn: true });
-    //res.redirect('/');
   }
 );
 
