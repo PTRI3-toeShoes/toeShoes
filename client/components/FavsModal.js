@@ -76,17 +76,17 @@ const FavModal = ({ open, handleClose, prop, favForward, favBackwards, currInd, 
 
     console.log(arr)
     
-    // api({
-    //   method: 'delete',
-    //   url: '/deleteFav',
-    //   data: {
-    //     ZPID: e,
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log('DELETE FAV RESPONSE ', res.data);
-    //   })
-    //   .catch((err) => console.log('DELETE FAV ERROR', err));
+    api({
+      method: 'delete',
+      url: '/deleteFav',
+      data: {
+        zpid: e,
+      },
+    })
+      .then((res) => {
+        console.log('DELETE FAV RESPONSE ', res.data);
+      })
+      .catch((err) => console.log('DELETE FAV ERROR', err));
   }
 
   

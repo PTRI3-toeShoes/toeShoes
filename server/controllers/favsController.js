@@ -41,11 +41,11 @@ favsController.addFavs = (req, res, next) => {
 favsController.getFavs = (req, res, next) => {
   //verify email is on the request
   // console.log('in get favs');
-  if (!req.cookies.ssid) {
-    return res
-      .status(500)
-      .send('favsController.getFavs error: no cookies line 40');
-  } else {
+  // if (!req.cookies.ssid) {
+  //   return res
+  //     .status(500)
+  //     .send('favsController.getFavs error: no cookies line 40');
+  // } else {
     //let favsArr;
 
     const queryString = `SELECT zpid FROM favorites WHERE user_id = 1`;
@@ -58,7 +58,7 @@ favsController.getFavs = (req, res, next) => {
       })
       .then(() => next())
       .catch((err) => console.log('favscontroller.getFavs error, ', err));
-  }
+  // }
 };
 
 module.exports = favsController;
