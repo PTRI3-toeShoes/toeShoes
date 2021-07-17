@@ -47,15 +47,14 @@ googleOauthController.googleLogin = async (req, res, next) => {
     res.locals.oauthToken = true;
     res.locals.isLoggedIn = true;
     res.locals.email = email;
-    console.log('res.locals inside of googleOauthController: ', res.locals);
+    console.log('res.locals inside of googleOauthController: ', res.locals.email);
 
     //query db to see if email exists
     const queryString = `SELECT * FROM users WHERE email = $1`;
     db.query(queryString, [res.locals.email])
         .then((data) => {
             //yes user exists-> next
-            if(data.rows[0].email){
-                console.log('data.rows[0].email', data.rows[0].email);
+            if(data.rows.length < 0){
                 const userEmail = data.rows[0].email;
                 console.log('res.locals.email: ', res.locals.email);
                 // res.locals.email = userEmail;
@@ -63,8 +62,8 @@ googleOauthController.googleLogin = async (req, res, next) => {
             }else{
                 //no-> create new user w/ email and dummy pw; next()
                 const phonypw = '203falk2924';
-                const queryString = `INSERT INTO users (email, password) VALUES ($1, $2)`;
-                db.query(queryString, [data.rows[0].email, phonypw])
+                const queryString = `INSERT INTO users (username, email, password) VALUES ($1, $2, $3)`;
+                db.query(queryString, [res.locals.email, res.locals.email, phonypw])
                 return next();
             }
         })

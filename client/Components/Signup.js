@@ -76,10 +76,8 @@ export default function SignUp({isLoggedIn, setIsLoggedIn}) {
           passwords,
         },
       }).then((res) => {
-        console.log(res.data.isLoggedIn);
-        setIsLoggedIn(res.data.isLoggedIn)
-        
-        
+        console.log('KEF signed up', res.data.isLoggedIn);
+        setIsLoggedIn(res.data.isLoggedIn);
       });
   };
 

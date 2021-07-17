@@ -21,7 +21,7 @@ router.post(
     sessionController.startSession,
   ],
   (req, res) => {
-    return res.status(209).send({ success: true });
+    return res.status(209).send({ isLoggedIn: true });
   }
 );
 
