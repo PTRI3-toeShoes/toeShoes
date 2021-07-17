@@ -67,6 +67,8 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
   const [forwardsAvailable, setForwardsAvailable] = useState(true);
   const [backwardsAvailable, setBackwardsAvailable] = useState(false);
 
+  const renderArr = [];
+
   //open/close handlers for add record modal
   const handleOpen = (e, idx) => {
     e.preventDefault();
@@ -144,6 +146,8 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
       setFavsArr(favsArr)
       setTileData(response.data.features[0].properties);
       console.log('response in useEffect ', response.data.features[0].properties);
+      
+      renderArr.push(<FavModal props={response.data.features[0].properties}/>)
     }
 
   }, []);
@@ -206,6 +210,7 @@ const Favorites = ({isLoggedIn,setIsLoggedIn,setDarkState,
             ))} */}
         </GridList>
       </div>
+      {renderArr}
       <FavModal
       noForwards={noForwards}
       noBackwards={noBackwards}
