@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 console.log('RGR process.env.SQL_STRING in dbModel: ', process.env.SQL_STRING);
 
 const pool = new Pool ({
-    connectionString: "postgres://wropaeom:iiD5vZLE3pltW78jVbLG19DqubsoY7E8@batyr.db.elephantsql.com/wropaeom"
+    connectionString: process.env.SQL_STRING
 });
 
 module.exports = {

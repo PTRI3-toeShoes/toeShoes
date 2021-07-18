@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
@@ -11,8 +12,6 @@ const { getRoutes } = require('get-routes');
 //direct controller imports
 const sessionController = require('./controllers/sessionController');
 const cookieController = require('./controllers/cookieController');
-const dotenv = require('dotenv');
-dotenv.config();
 //route imports
 const signupRouter = require('./routes/signupRoute');
 const signinRouter = require('./routes/signinRoute');
@@ -21,7 +20,7 @@ const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
 const queryFavsRouter = require('./routes/queryFavsRouter');
 const googleOauthRouter = require('./routes/googleOauthRoute');
-
+const similarPropertiesRouter = require('./routes/similarPropertiesRoute');
 
 
 app.use(cors());
@@ -44,6 +43,9 @@ app.use('/signin', signinRouter);
 
 //properties route
 app.use('/properties', properties);
+
+//
+app.use('/similar', similarPropertiesRouter);
 
 //add favorites route
 app.use('/addFav', addFavsRouter);

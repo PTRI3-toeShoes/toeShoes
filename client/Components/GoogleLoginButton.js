@@ -7,16 +7,15 @@ import GoogleLogin from 'react-google-login';
 export default function GoogleLoginButton({isLoggedIn, setIsLoggedIn}){
 
     function handleUpdateLoginState(loggedInState) {
-    console.log('isLoggedIn: ', isLoggedIn);
-    console.log('RGR loggedInState variable: ', loggedInState);
+    // console.log('isLoggedIn: ', isLoggedIn);
+    // console.log('RGR loggedInState variable: ', loggedInState);
     setIsLoggedIn(loggedInState);
-    console.log('RGR State Updated to isLoggedIn: ', isLoggedIn);
-    
+    // console.log('RGR State Updated to isLoggedIn: ', isLoggedIn);
   }
 
   const responseSuccessGoogle = (response) => {
-    console.log('Response Success in signin: ', response);
-    console.log('response token: ', response.tokenObj.id_token);
+    // console.log('Response Success in signin: ', response);
+    // console.log('response token: ', response.tokenObj.id_token);
     //console.log('RGR props: ', props);
     api({
       method: 'post',

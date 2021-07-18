@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
 const { quantileSorted } = require('d3');
+const { maxHeaderSize } = require('http');
+const { features } = require('process');
 
 const middlewares = {};
 
@@ -257,5 +259,128 @@ middlewares.getPropertiesForRental = async (req, res, next) => {
 
   return next();
 };
+
+
+/**
+ * 
+ * @param {* zpid } req 
+ * @param {* locals.similarProperties } res 
+ * @param {*} next 
+ */
+middlewares.getComparableProperties = async (req, res, next) => {
+  const url = new URL(
+    'https://zillow-com1.p.rapidapi.com/similarProperty'
+  );
+
+  console.log('req.body inside of getComparableProperties: ', req.body);
+  // console.log('RGR req.body inside of getComparableProperties middleware: ', req.body);
+
+  const zpid = req.body.zpid;
+  // console.log('zpid from response: ', zpid);
+  const params = {
+    // zpid: zpid
+    zpid: zpid
+  };
+
+  url.search = new URLSearchParams(params).toString();
+  // console.log('url inside getComparableProperties: ', url);
+
+  // RETURNS: array of objects 
+  /**
+   * [
+      0:
+      {"bathrooms":4
+      "bedrooms":3
+      "miniCardPhotos":[...]1 item
+      "zpid":48749498
+      "longitude":-122.346914
+      "address":{...}4 items
+      "latitude":47.632692
+      "livingArea":1838
+      "homeType":"TOWNHOUSE"
+      "livingAreaUnits":"Square Feet"
+      "currency":"USD"
+      "price":1699900}
+    ]
+   */
+  // const result = await fetch(url, { method: 'GET', headers: headers }).then(
+  //   (res) => {
+  //     console.log('res.Response.body.json() inside of fetch ZillowAPI url: ' , JSON.stringify(res));
+  //     // console.log('res inside of fetch ZillowAPI url: ' , res.body);
+  //     res.json();
+  //   }
+  // );
+  const result = await fetch("https://zillow-com1.p.rapidapi.com/similarProperty?zpid=2080998890", {
+    "method": "GET",
+    "headers": headers
+    }).then(
+    (res) => res.json()
+  );
+  // .then(response => {
+  //   console.log('after fetch from ZillowAPI: ', response);
+  //   result = response.json();
+  // })
+  // .catch(err => {
+  //   console.error(err);
+  // });
+
+  console.log('result after fetch to Zillow: ', result);
+
+  if(result){
+    if(result.length > 0){
+      // console.log('RGR inside of getComparableProperties miniCardPhotos[0].url: ', miniCardPhotos[0].url);
+      let fts = result.filter((element) => !isNaN(Number(element.zpid)));
+        console.log('ft: ', fts);
+      fts.forEach((el, idx) => {
+          console.log('el.miniCardPhotos: ', el.miniCardPhotos[0].url);
+          fts[idx].miniCardPhotos = el.miniCardPhotos[0].url
+      });
+      console.log('Newest fts: ', fts);
+
+      res.locals.similarProperties =
+        fts
+          .map(
+            ({
+              latitude,
+              longitude,
+              address,
+              price,
+              propertyType,
+              livingArea,
+              bedrooms,
+              bathrooms,
+              miniCardPhotos,
+              zpid,
+            }) => ({
+              type: 'Feature',
+              properties: {
+                Address: address,
+                'Monthly rent': `$${price}`,
+                Type: propertyType,
+                Size: `${livingArea} sqft`,
+                '# bedrooms': bedrooms,
+                '# bathrooms': bathrooms,
+                Image: miniCardPhotos[0].url,
+                ZPID: zpid,
+              },
+              geometry: {
+                coordinates: [Number(longitude), Number(latitude)],
+                type: 'Point',
+              },
+            })
+          );
+  
+      // console.log('res.locals.similarProperties: ', res.locals.similarProperties);
+    }
+  }else {
+    return next({
+      log: 'getComparableProperties: ERROR: Invalid search query.',
+      status: 400,
+      message: { err: 'getComparableProperties: ERROR: Invalid search query.' },
+    });
+  }
+  console.log('before next');
+  return next();
+}
 
 module.exports = middlewares;

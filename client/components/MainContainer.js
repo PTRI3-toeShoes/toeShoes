@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import SearchBar from './SearchBar';
 import MapView from '../MapView';
-import RanksContainer from './RanksContainer';
+import SimilarPropertiesContainer from './SimilarPropertiesContainer';
 
 const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   return (
@@ -54,7 +54,7 @@ const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
         Search target
       </button>
       <pre id="listings"></pre> */}
-      {/* <RanksContainer/> */}
+      <SimilarPropertiesContainer/>
     </Container>
   );
 };

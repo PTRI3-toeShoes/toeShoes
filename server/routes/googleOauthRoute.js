@@ -10,8 +10,8 @@ router.post('/', [
     cookieController.setSSIDCookie,
     sessionController.startSession],
     (req, res) => {
-        console.log('res in the googleOauth Route: ', res);
-        res.status(200).send({ isLoggedIn: true })
+        // console.log('res in the googleOauth Route: ', res);
+        return res.status(200).send({ isLoggedIn: true })
     }
 );
 
