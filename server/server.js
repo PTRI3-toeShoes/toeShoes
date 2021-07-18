@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
+
 const dotenv = require('dotenv');
 dotenv.config();
+
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { URL, URLSearchParams } = require('url');
@@ -19,6 +21,7 @@ const properties = require('./routes/properties');
 const addFavsRouter = require('./routes/addFavsRoute');
 const getFavsRouter = require('./routes/getFavsRoute');
 const queryFavsRouter = require('./routes/queryFavsRouter');
+const deleteFavRoute = require('./routes/deleteFavRoute');
 const googleOauthRouter = require('./routes/googleOauthRoute');
 const similarPropertiesRouter = require('./routes/similarPropertiesRoute');
 
@@ -33,7 +36,7 @@ app.use('/testRoute', (req, res) => {
 });
 
 //signup route
-app.use('/register', signupRouter);
+app.use('/signup', signupRouter);
 
 //oauth signin route
 app.use('/googlelogin', googleOauthRouter);
@@ -52,6 +55,8 @@ app.use('/addFav', addFavsRouter);
 
 //get favorites route
 app.use('/getFavs', getFavsRouter);
+
+app.use('/deleteFav', deleteFavRoute);
 
 app.use('/zillowFavQuery', queryFavsRouter);
 

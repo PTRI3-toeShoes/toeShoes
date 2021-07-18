@@ -59,7 +59,7 @@ export default function SignIn({isLoggedIn, setIsLoggedIn}) {
   const [password, setPassword] = useState('');
   console.log('SIGN IN isLoggedIn: ', isLoggedIn);
   //const { isLoggedInBool, updateLoggedInStateBool } = props;
-  console.log('SIGN RGR isLoggedIn: ', isLoggedIn);
+  //console.log('SIGN RGR isLoggedIn: ', isLoggedIn);
   console.log('SIGN RGR setIsLoggedIn: ', typeof(setIsLoggedIn));
   // const [ isUserLoggedIn, setIsUserLoggedIn ] = useContext(UserContext);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
