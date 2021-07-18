@@ -69,7 +69,7 @@ const MapView = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   console.log('markers data ', markers);
 
   useEffect( () => {
-    const defaultLocation = 'Los Angeles, CA'
+    const defaultLocation = 'Bismarck, ND'
     const fetchMarkers = async () => {
       // update API call status
       setStatus('loading');
@@ -126,11 +126,8 @@ const MapView = ({mapTheme, favoriteCount, setFavoriteCount}) => {
   };
 
   const [viewport, setViewport] = useState({
-    // default location - Mountain View, CA
-    // longitude: -122.08200104737605,
-    // latitude: 37.38560001105436,
-    longitude: -118.243683,
-    latitude: 34.052235,
+    longitude: -100.7837,
+    latitude: 46.8083,
     zoom: 12,
     bearing: 0,
     pitch: 0,

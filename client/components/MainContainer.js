@@ -5,8 +5,27 @@ import Card from '@material-ui/core/Card';
 import SearchBar from './SearchBar';
 import MapView from '../MapView';
 import SimilarPropertiesContainer from './SimilarPropertiesContainer';
+import RanksContainer from './RanksContainer';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles((theme)=>({
+  mapSize:{
+   marginLeft:'0px',
+   marigningRight:'0px',
+   paddingLeft:'2px',
+   paddingRight:'2px',
+  }
+,zillow:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems: 'center',
+}
+}));
 
 const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
+ 
+  const classes =useStyle()
+
   return (
     <Container component="main">
       <Container>
@@ -54,7 +73,10 @@ const MainContainer = ({mapTheme, favoriteCount, setFavoriteCount}) => {
         Search target
       </button>
       <pre id="listings"></pre> */}
-      <SimilarPropertiesContainer/>
+      {/* <SimilarPropertiesContainer/> */}
+      <div>
+        <img src='http://www.zillow.com/widgets/GetVersionedResource.htm?path=/static/logos/Zillowlogo_200x50.gif'/>
+      </div>
     </Container>
   );
 };
